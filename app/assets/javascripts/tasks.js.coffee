@@ -224,28 +224,6 @@ $ ()->
     total_tasks_completed = $(".subtask .complete").size()
     setMainProgressBar(total_tasks_completed)
 
-  # Ajax calls
-  sync = (data)->
-    taskId = data.task.id
-    url = "tasks/"+taskId
-    $.ajax
-      url: url
-      type: "put"
-      dataType: "json"
-      data: data
-      success: (data)->
-      error: (err, status, exception)->
-
-  fetch = ->
-    return $.ajax
-      url: "tasks"
-      dataType: "json"
-      success: (data)->
-        populateForms(data)
-        setFormEvents()
-      error: (err)->
-        console.log err
-
   init = ->
     $('.subtasks').hide()
     # setMainProgressBar(6)
@@ -254,6 +232,7 @@ $ ()->
     setDaysLeft(new Date("2013-04-27 11:23:00"))
     $(".taskpage-subtask").hide()
     $(".taskpage").hide()
-    fetch()
+    ajax_requester = new PreKix.AjaxRequester()
+    ajax_requester.fetch()
 
   init()
