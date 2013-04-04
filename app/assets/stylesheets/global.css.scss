@@ -34,7 +34,6 @@
   border-radius: 6px 6px 0 0;
   padding: 20px 20px 0 20px;
   clear: both;
-  /*border: 1px solid red;*/
 }
 
 #container-bot {
@@ -96,4 +95,34 @@
   text-align: center;
   opacity:0.95;
   filter:alpha(opacity=95); /* For IE8 and earlier */
+}
+
+#logout {
+  height: 35px;
+  line-height: 35px;
+  margin: 80 40 0 0;
+  position: fixed;
+  right: 50px;
+  top: 0;
+  text-align: right;
+  color: #e67e22;
+}
+
+#logout a:link {
+  color: #fff;
+}
+
+#logout a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+#logout a:hover {
+  color: yellow;
+  text-decoration: none;
+}
+
+#logout a:active {
+  color: yellow;
+  text-decoration: none;
 }
