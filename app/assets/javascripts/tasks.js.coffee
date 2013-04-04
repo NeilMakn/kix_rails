@@ -50,17 +50,17 @@ $ ()->
       $('.subtasks').trigger('hide_open_lists')
       $(this).addClass('select')
       $(this).children('.dotted').children('li').addClass('select')
-
-      $(subtask).slideToggle 500, ()->
-        if($(this).css('display') == 'none')
-          $(target).removeClass('select')
-          return true
-      return true
-    else
-      $(subtask).slideToggle 500, ()->
-        $(target).removeClass('select')
-        $(target).children('.dotted').children('li').removeClass('select')
-        return true
+      #WORK IN PROGRESS REMOVAL
+      # $(subtask).slideToggle 500, ()->
+      #   if($(this).css('display') == 'none')
+      #     $(target).removeClass('select')
+      #     return true
+      # return true
+    # else
+      # $(subtask).slideToggle 500, ()->
+      #   $(target).removeClass('select')
+      #   $(target).children('.dotted').children('li').removeClass('select')
+      #   return true
 
   $('.subtasks').on 'hide_open_lists', (e)->
     catButton = $(this).parent().children('.cat-button')
