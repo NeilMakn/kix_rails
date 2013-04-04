@@ -7,37 +7,6 @@ window.TaskApp = TaskApp || {};
 
 $ ()->
   # This array is only for reference.
-  TYPES = [
-            "story-main",
-            "story-long",
-            "story-email",
-            "story-edit-content",
-            "story-perspective",
-
-            "fin_goal",
-            "fin_rewards",
-            "fin_fulfill",
-            "fin_stretch_goals",
-            "fin_math",
-
-            "net_website",
-            "net_friends",
-            "net_social_media",
-            "net_blog",
-            "net_events",
-
-            "video_videographer",
-            "video_storyboard",
-            "video_filming",
-            "video_editing",
-            "video_sharing",
-
-            "marketing_print_material",
-            "marketing_events",
-            "marketing_networking",
-            "marketing_web_visibility",
-            "marketing_friends"
-          ]
 
   $('.cat-button').click (e)->
     target = e.currentTarget
@@ -101,27 +70,11 @@ $ ()->
     return true
 
   # Form Setup
-  formatFormValues = (data)->
-    args = {}
-    $.each data, (index, el)->
-      args[el.name] = el.value
-    console.log args
-    return {task:args}
 
   setFormEvents = ->
       # toggleSetup is a call to a Flat UI setup function in
       # vendor/assets/javascripts/custom_radio.js
       TaskApp.toggleSetup()
-
-      inputTimer = null
-      $("textarea").keyup (e)->
-        self = this
-        if(inputTimer)
-          clearTimeout(inputTimer)
-        inputTimer = setTimeout ()->
-          data = formatFormValues($(self).closest('form').serializeArray())
-          sync(data)
-        ,1500
 
       $(".toggle-task").change (e)->
         category = $(this).parent().data('cat')
@@ -182,13 +135,6 @@ $ ()->
     else
       $(taskId + " " + badgeClass).removeClass('complete').addClass('incomplete')
 
-  setDaysLeft = (launchDate)->
-    nowDate = new Date()
-    daysLeft = Math.ceil((launchDate - nowDate) / 1000 / 60 / 60 / 24)
-    daysLeft += " days left"
-    $('#flag').html daysLeft
-    return true
-
   createForms = ->
     source = $("#form-template").html()
     template = Handlebars.compile(source)
@@ -199,7 +145,7 @@ $ ()->
       $("#taskpage-"+subtask).children(".form-display").html(template(data))
     # return true
 
-  populateForms = (data)->
+  populateForms = (topic, data)->
     cat_tasks_completed = 0
     last_cat = ""
     $.each data, (index, value)->
@@ -207,7 +153,7 @@ $ ()->
       type      = value.type_task
       text      = value.text
       completed = value.completed
-      subtask   = TYPES[type]
+      subtask   = PreKix.TYPES[type]
       category  = subtask.split("-")[0]
       data      = { category: category, subtask: subtask, id: id, text: text, completed: completed }
       # Do template
@@ -224,15 +170,21 @@ $ ()->
     total_tasks_completed = $(".subtask .complete").size()
     setMainProgressBar(total_tasks_completed)
 
+  refesh = (topic, data)->
+    tView = new PreKix.TaskTextareaView()
+    daysLeft = new PreKix.DaysLeftView(new Date("2013-04-27 11:23:00")).render()
+
   init = ->
     $('.subtasks').hide()
-    # setMainProgressBar(6)
-    # setSubProgressBar('story', 3)
-    # setSubProgressBar('video', 2)
-    setDaysLeft(new Date("2013-04-27 11:23:00"))
     $(".taskpage-subtask").hide()
     $(".taskpage").hide()
+
+    $.pubsub("subscribe", "fetch_success", populateForms)
+    $.pubsub("subscribe", "fetch_success", refesh)
+
     ajax_requester = new PreKix.AjaxRequester()
     ajax_requester.fetch()
+
+    $.pubsub("subscribe", "user_input_update", (topic, data)-> ajax_requester.update(topic, data))
 
   init()

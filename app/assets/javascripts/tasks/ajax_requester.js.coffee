@@ -1,6 +1,19 @@
 @PreKix = PreKix ? {}
 class PreKix.AjaxRequester
-  contructor: ->
+
+  formatFormValues: (formData)->
+    console.log formData
+    data = formData.serializeArray()
+    args = {}
+    $.each data, (index, el)->
+      args[el.name] = el.value
+    console.log args
+    return {task:args}
+
+  update: (message, form)->
+    data = @formatFormValues(form)
+    console.log data
+    @sync(data)
 
   sync: (data)->
     taskId = data.task.id
@@ -11,14 +24,16 @@ class PreKix.AjaxRequester
       dataType: "json"
       data: data
       success: (data)->
+        $.pubsub("publish", "sync_success", data)
       error: (err, status, exception)->
+        $.pubsub("publish", "sync_error", err)
 
-  fetch:  ->
+  fetch: ->
     return $.ajax
       url: "tasks"
       dataType: "json"
       success: (data)->
-        # populateForms(data)
-        # setFormEvents()
-      error: (err)->
+        $.pubsub("publish", "fetch_success", data)
+      error: (err, status, exception)->
         console.log err
+        $.pubsub("publish", "fetch_error", err)
