@@ -15,6 +15,6 @@ class PreKix.TaskTextareaView
     ,@waitTime
 
   setKeyUp: ->
-    self = @
+    _self = @
     $(@el).keyup (e)->
-      self.createInputTimer(e.currentTarget)
+      _self.createInputTimer(e.currentTarget)
