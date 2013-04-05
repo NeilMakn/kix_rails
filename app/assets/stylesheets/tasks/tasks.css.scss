@@ -148,10 +148,20 @@ ul.dotted li {
   color: #f39b3a;
 }
 
-.badge-incomplete {
+.category-badge{
   position: absolute;
+  width: 58px;
+  height: 58px;
   right: 13px;
   top: 8px;
+}
+
+.category-badge.incomplete {
+  background: url(image-path('badges/category/incomplete.png')) no-repeat;
+}
+
+.category-badge.incomplete-select{
+  background: url(image-path('badges/category/incomplete_select.png')) no-repeat;
 }
 
 /****** Sub Task List Styles ******/
@@ -214,7 +224,7 @@ ul.dotted li {
 }
 
 .subtask .complete.select{
-  background: url(image-path('badges/subtask/complete-select.png'));
+  background: url(image-path('badges/subtask/complete_select.png'));
 }
 
 /****** Text Elements ******/

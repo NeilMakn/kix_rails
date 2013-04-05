@@ -1,6 +1,7 @@
 @PreKix = PreKix ? {}
 class PreKix.FormInitializer
   constructor: ->
+    @createForms()
 
   createForms: ->
     source = $("#form-template").html()
@@ -10,7 +11,6 @@ class PreKix.FormInitializer
       subtask = $(this).attr("id")
       data = { category: category, subtask: subtask}
       $("#taskpage-"+subtask).children(".form-display").html(template(data))
-    # return true
 
   populateForms: (topic, data)->
     cat_tasks_completed = 0

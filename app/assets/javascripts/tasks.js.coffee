@@ -35,12 +35,18 @@ $ ()->
     taskTotal = 25
     # progressBar = new PreKix.ProgressBar(barWidthMax, taskTotal)
     # subtaskProgressBar = new PreKix.SubtaskProgressBar()
+    formInitializer = new PreKix.FormInitializer()
+
     categoryButton = new PreKix.CategoryButton()
+    categoryBadge = new PreKix.CategoryBadge()
     subtasksMenu = new PreKix.SubtaskMenu()
+    subtaskButton = new PreKix.SubtaskButton()
+    defaultPage = new PreKix.DefaultPage()
+    taskPage = new PreKix.TaskPage()
 
     $('.subtasks').hide()
     $(".taskpage-subtask").hide()
-    $(".taskpage").hide()
+    # $(".taskpage").hide()
 
     # $.pubsub("subscribe", 'task_update', progressBar.setComplete.bind(progressBar))
     # $.pubsub("subscribe", 'task_update', subtaskProgressBar.setComplete.bind(subtaskProgressBar))

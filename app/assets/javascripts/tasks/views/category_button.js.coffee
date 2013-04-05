@@ -2,14 +2,7 @@
 class PreKix.CategoryButton
   constructor: ->
     @el = '.cat-button'
-    @context = null
     @setEvents()
-
-  setContext: (context)->
-    @context = context
-
-  findCategory: ->
-    $(@context).parent().attr("id")
 
   setEvents: ->
     $.pubsub("subscribe", "category_button_click", @handleEvents.bind(this))
@@ -19,19 +12,28 @@ class PreKix.CategoryButton
       $.pubsub("publish", "category_button_click", context)
 
   handleEvents: (message, context)->
-    @setContext(context)
-    @selectDisplayState()
+    @deselectOthers(context)
+    @setDisplayState(context)
 
-  selectDisplayState: ()->
-    if $(@context).hasClass("select")
-      @setStateDeselected()
+  deselectAll: ->
+    @setDeselected(@el)
+
+  deselectOthers: (context)->
+    _self = @
+    $(@el).each (index, el)->
+      if el != context
+        _self.setDeselected($(el))
+
+  setDisplayState: (context)->
+    if $(context).hasClass("select")
+      @setDeselected(context)
     else
-      @setStateSelected()
+      @setSelected(context)
 
-  setStateSelected: ()->
-    $(@context).addClass('select')
-    $(@context).children('.dotted').children('li').addClass('select')
+  setSelected: (context)->
+    $(context).addClass('select')
+    $(context).children('.dotted').children('li').addClass('select')
 
-  setStateDeselected: ()->
-    $(@context).removeClass('select')
-    $(@context).children('.dotted').children('li').removeClass('select')
+  setDeselected: (context)->
+    $(context).removeClass('select')
+    $(context).children('.dotted').children('li').removeClass('select')

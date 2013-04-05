@@ -2,20 +2,16 @@
 class PreKix.SubtaskMenu
   constructor: ->
     @el = '.subtasks'
-    @context = null
     @setEvents()
 
-  setContext: (context)->
-    @context = context
+  findSubtaskMenu: (catButton)->
+    $(catButton).parent().children(@el).get(0)
 
-  findSubtasksByCategoryButton: (catButton)->
-    $(catButton).parent().children(@el)
+  isOpen: (context)->
+    if $(context).css("display") == "block" then true else false
 
-  isOpen: ->
-    if $(@context).css("display") == "block" then true else false
-
-  isClosed: ->
-    if $(@context).css("display") == "none" then true else false
+  isClosed: (context)->
+    if $(context).css("display") == "none" then true else false
 
   setEvents: ->
     _self = this
@@ -25,28 +21,25 @@ class PreKix.SubtaskMenu
     $.pubsub("subscribe", "category_button_click", @handleEvents.bind(this))
 
   handleEvents: (message, context)->
-    context = @findSubtasksByCategoryButton(context)
-    @setContext(context)
+    context = @findSubtaskMenu(context)
     $(@el).trigger "close_open_subtask_menus"
-    @displayMenu()
+    @displayMenu(context)
 
-  showMenu: ->
-    $(@context).slideDown 500, ->
+  showMenu: (context)->
+    $(context).slideDown 500, ->
       $.pubsub("publish", "subtask_menu_open_complete", @context)
 
-  hideMenu: ->
-    $(@context).slideUp 500, ->
+  hideMenu: (context)->
+    $(context).slideUp 500, ->
       $.pubsub("publish", "subtask_menu_close_complete", @context)
 
-  displayMenu: ->
-    if @isClosed()
-      @showMenu()
+  displayMenu: (context)->
+    if @isClosed(context)
+      @showMenu(context)
     else
-      @hideMenu()
+      @hideMenu(context)
 
   closeOpenMenus: (context)->
     if $(context).css('display') == 'block'
       $(context).slideUp(500)
-      # $(catButton).removeClass('select')
-      # $(catButton).children('.dotted').children('li').removeClass('select')
 
