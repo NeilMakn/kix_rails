@@ -1,38 +1,32 @@
 @PreKix = PreKix ? {}
-class PreKix.SubtaskBadge
+class PreKix.TaskToggle
   constructor: ->
     @el = '.toggle-task'
+    @setEvents()
 
   setEvents: ->
+    _self = @
     $(@el).change (e)->
-      target = e.currentTarget
-      $(target).closest('form')
-      $.pubsub("publish", "user_input_update", form)
+      context = e.currentTarget
+      _self.publishInputUpdate(context)
+      _self.publishToggleUpdate(context)
 
-      state = parseInt($(target).val(), 10)
-      $.pubsub("publish", "task_toggle_update", {subtask:subtask,  state:state})
+  publishInputUpdate: (context)->
+      formData =  $(context).closest('form')
+      $.pubsub("publish", "user_input_update", formData)
 
-      category = $(this).parent().data('cat')
-      subtask = $(this).parent().data('subtask')
+  publishToggleUpdate: (context)->
+      toggleState = parseInt($(context).val(), 10)
+      toggleData = @getToggleData(context)
+      if toggleState == 1
+        $.pubsub("publish", "toggle_task_complete", toggleData)
 
-      setTaskComplete(subtask, state)
-      # count the number of tasks in this category that are complete
-      cat_tasks_complete = $("#" + category + " .subtask .complete").size()
-      subtaskProgressBar.setComplete(category, cat_tasks_complete)
+      else if toggleState == 0
+        $.pubsub("publish", "toggle_task_incomplete", toggleData)
 
-      #Can also use this to check tasks $('.task-cb:checked').size()
-      total_tasks_complete = $(".subtask .complete").size()
-      progressBar.setComplete(total_tasks_complete)
-      setToggleText(e.currentTarget, state)
-
-      # data = formatFormValues($(this).closest('form').serializeArray())
-      # sync(data)
-
-
-  setComplete: (message, subtask)->
-    @subtask = subtask
-    @render()
-
-  render: ->
+  getToggleData: (context)->
+    category = $(context).parent().data('cat')
+    subtask = $(context).parent().data('subtask')
+    data = {category: category, subtask: subtask}
 
 

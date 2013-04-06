@@ -2,6 +2,14 @@
 class PreKix.FormInitializer
   constructor: ->
     @createForms()
+    @setEvents()
+
+  setEvents: ->
+    $.pubsub("subscribe", "fetch_success", @handleEvents.bind(this))
+
+  handleEvents: (message, data)->
+    if message == "fetch_success"
+      @populateForms(data)
 
   createForms: ->
     source = $("#form-template").html()
@@ -12,7 +20,13 @@ class PreKix.FormInitializer
       data = { category: category, subtask: subtask}
       $("#taskpage-"+subtask).children(".form-display").html(template(data))
 
-  populateForms: (topic, data)->
+  handleCompletedTasks: (category, subtask, completed)->
+    if completed != null
+      toggleData = {category: category, subtask: subtask}
+      $.pubsub('publish', 'toggle_task_complete', toggleData)
+
+  populateForms: (data)->
+    _self = @
     cat_tasks_completed = 0
     last_cat = ""
     $.each data, (index, value)->
@@ -26,14 +40,12 @@ class PreKix.FormInitializer
       # Do template
       source    = $("#form-template").html()
       template  = Handlebars.compile(source)
-      $("#taskpage-"+subtask).children(".form-display").html(template(data))
-      # update progress bars
-      if completed != null
-        if category != last_cat then cat_tasks_completed = 0
-        cat_tasks_completed +=1
-        $.pubsub("publish", "subtask_update", {category: category, tasks_complete: cat_tasks_completed})
-        setTaskComplete(subtask, 1)
-        last_cat = category
-    total_tasks_completed = $(".subtask .complete").size()
-    $.pubsub("publish", "task_update", total_tasks_completed)
-    return true
+      #
+      context = $("#taskpage-" + subtask)
+      $("#taskpage-" + subtask).children(".form-display").html(template(data))
+      # handleCompletedTasks notifies the task tracker
+      # if a task is complete so views can be updated
+      _self.handleCompletedTasks(category, subtask, completed)
+
+    $.pubsub("publish", "populate_forms_complete", data)
+

@@ -4,17 +4,16 @@ class PreKix.CategoryBadge
     @context = null
     @setEvents()
 
-  findCategoryBadge: (context)->
+  findContextByCategoryButton: (context)->
     $(context).children(@el).get(0)
 
-  setEvents: ->
-    $.pubsub("subscribe", "category_button_click", @handleEvents.bind(this))
-    $.pubsub("subscribe", "subtasks_complete", @handleEvents.bind(this))
+  findContextByCategory: (context)->
+    $('#' + context).find(@el)
 
-  handleEvents: (message, context)->
-    badge = @findCategoryBadge(context)
-    @setDisplay(badge)
-    @deselectOthers(badge)
+  setEvents: ->
+    $.pubsub("subscribe", "category_button_click", @onCategoryButtonClick.bind(this))
+    $.pubsub("subscribe", "category_tasks_complete", @onCategoryTaskComplete.bind(this))
+    $.pubsub("subscribe", "category_tasks_incomplete", @onCategoryTaskIncomplete.bind(this))
 
   setDisplay: (context)->
     if $(context).hasClass('incomplete')
@@ -29,10 +28,24 @@ class PreKix.CategoryBadge
         _self.setIncomplete($(el))
 
   setIncompleteSelected: (context)->
-    $(context).removeClass('incomplete').addClass('incomplete-select')
+    unless $(context).hasClass('complete')
+      $(context).removeClass('incomplete').addClass('incomplete-select')
 
   setIncomplete: (context)->
-    $(context).removeClass('incomplete-select').addClass('incomplete')
+    unless $(context).hasClass('complete')
+      $(context).removeClass('incomplete-select').addClass('incomplete')
 
-  setComplete: (context)->
-    $(context).removeClass('incomplete').addClass('incomplete-select')
+  onCategoryButtonClick: (message, buttonData)->
+    context = @findContextByCategoryButton(buttonData)
+    @setDisplay(context)
+    @deselectOthers(context)
+
+  onCategoryTaskComplete: (message, category)->
+    context = @findContextByCategory(category)
+    unless $(context).hasClass('complete')
+      $(context).removeClass('incomplete').addClass('complete')
+
+  onCategoryTaskIncomplete: (message, category)->
+    context = @findContextByCategory(category)
+    if $(context).hasClass('complete')
+      $(context).removeClass('complete').addClass('incomplete-select')

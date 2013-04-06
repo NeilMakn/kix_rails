@@ -2,14 +2,14 @@
 class PreKix.TaskTextareaView
   constructor: (@waitTime=1500)->
     @el = 'textarea'
-    @inputTimer = null
     @setKeyUp()
+    @inputTimer = null
 
   createInputTimer: (target)->
-    if(inputTimer)
+    if(@inputTimer)
       clearTimeout(@inputTimer)
 
-    inputTimer = setTimeout ()->
+    @inputTimer = setTimeout ()->
       form = $(target).closest('form')
       $.pubsub("publish", "user_input_update", form)
     ,@waitTime

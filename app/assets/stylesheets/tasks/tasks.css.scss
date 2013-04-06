@@ -164,6 +164,10 @@ ul.dotted li {
   background: url(image-path('badges/category/incomplete_select.png')) no-repeat;
 }
 
+.category-badge.complete{
+  background: url(image-path('badges/category/complete.png')) no-repeat;
+}
+
 /****** Sub Task List Styles ******/
 
 .subtasks{

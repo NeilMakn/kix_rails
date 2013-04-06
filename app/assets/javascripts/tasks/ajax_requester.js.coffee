@@ -1,13 +1,16 @@
 @PreKix = PreKix ? {}
 class PreKix.AjaxRequester
+  constructor: ->
+    @setEvents()
+
+  setEvents: ->
+    $.pubsub('subscribe', 'user_input_update', @update.bind(this))
 
   formatFormValues: (formData)->
-    console.log formData
     data = formData.serializeArray()
     args = {}
     $.each data, (index, el)->
       args[el.name] = el.value
-    console.log args
     return {task:args}
 
   update: (message, form)->

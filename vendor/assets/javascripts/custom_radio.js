@@ -1,4 +1,4 @@
-var TaskApp = TaskApp || {};
+var PreKix = PreKix || {};
 
 var toggleHandler = function(toggle) {
     var toggle = toggle;
@@ -24,10 +24,10 @@ var toggleHandler = function(toggle) {
 };
 
 $(document).ready(function() {
-    TaskApp.toggleSetup = function(){
+    PreKix.toggleSetup = function(){
         $(".toggle").each(function(index, toggle) {
             toggleHandler(toggle);
         });
     };
-    TaskApp.toggleSetup();
+    PreKix.toggleSetup();
 });

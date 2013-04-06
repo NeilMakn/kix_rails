@@ -3,60 +3,37 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 # Create namespace or use current namespace object
-window.TaskApp = TaskApp || {};
+window.PreKix = PreKix || {};
 
 $ ()->
-  # This array is only for reference.
-
-  # Form Setup
-
-  setFormEvents = ->
-    # toggleSetup is a call to a Flat UI setup function in
-    # vendor/assets/javascripts/custom_radio.js
-    TaskApp.toggleSetup()
-
-  # Page content display
-  showDefaultPageContent = ->
-    $("#main-content").removeClass("default-bg").addClass("mountain-bg")
-    $("#taskpage-default").show()
-
-  hideDefaultPageContent = ->
-    $("#main-content").removeClass("mountain-bg").addClass("default-bg")
-    $("#taskpage-default").hide()
-
-  # Task progress / complete code
-
-  refesh = (topic, data)->
-    tView = new PreKix.TaskTextareaView()
+  onFetchComplete = (topic, data)->
     daysLeft = new PreKix.DaysLeftView(new Date("2013-04-27 11:23:00")).render()
+    taskTextarea = new PreKix.TaskTextareaView()
+    taskToggle = new PreKix.TaskToggle()
+    PreKix.toggleSetup()
 
   init = ->
-    barWidthMax = 493
-    taskTotal = 25
-    # progressBar = new PreKix.ProgressBar(barWidthMax, taskTotal)
-    # subtaskProgressBar = new PreKix.SubtaskProgressBar()
-    formInitializer = new PreKix.FormInitializer()
+    $('.subtasks').hide()
+    $(".taskpage-subtask").hide()
 
+    progressBarWidthMax = 493
+    progressBarTaskTotal = 25
+
+    formInitializer = new PreKix.FormInitializer()
+    progressBar = new PreKix.ProgressBar(progressBarWidthMax, progressBarTaskTotal)
+    subtaskProgressBar = new PreKix.SubtaskProgressBar()
     categoryButton = new PreKix.CategoryButton()
     categoryBadge = new PreKix.CategoryBadge()
     subtasksMenu = new PreKix.SubtaskMenu()
     subtaskButton = new PreKix.SubtaskButton()
+    subtaskBadge = new PreKix.SubtaskBadge()
     defaultPage = new PreKix.DefaultPage()
     taskPage = new PreKix.TaskPage()
+    taskTracker = new PreKix.TaskTracker()
+    taskToggleText = new PreKix.ToggleText()
 
-    $('.subtasks').hide()
-    $(".taskpage-subtask").hide()
-    # $(".taskpage").hide()
+    ajax_requester = new PreKix.AjaxRequester()
+    ajax_requester.fetch()
 
-    # $.pubsub("subscribe", 'task_update', progressBar.setComplete.bind(progressBar))
-    # $.pubsub("subscribe", 'task_update', subtaskProgressBar.setComplete.bind(subtaskProgressBar))
-
-    # $.pubsub("subscribe", "fetch_success", populateForms)
-    # $.pubsub("subscribe", "fetch_success", refesh)
-
-    # ajax_requester = new PreKix.AjaxRequester()
-    # ajax_requester.fetch()
-
-    # $.pubsub("subscribe", "user_input_update", ajax_requester.update.bind(ajax_requester))
-
+    $.pubsub("subscribe", "populate_forms_complete", onFetchComplete)
   init()
