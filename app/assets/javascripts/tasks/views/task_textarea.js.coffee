@@ -1,20 +1,23 @@
 @PreKix = PreKix ? {}
-class PreKix.TaskTextareaView
+class PreKix.TaskTextarea
   constructor: (@waitTime=1500)->
     @el = 'textarea'
-    @setKeyUp()
+    @setEventHandlers()
     @inputTimer = null
 
   createInputTimer: (target)->
+    _self = @
     if(@inputTimer)
       clearTimeout(@inputTimer)
-
     @inputTimer = setTimeout ()->
       form = $(target).closest('form')
-      $.pubsub("publish", "user_input_update", form)
+      _self.publishUserInputUpdate(form)
     ,@waitTime
 
-  setKeyUp: ->
+  setEventHandlers: ->
     _self = @
     $(@el).keyup (e)->
       _self.createInputTimer(e.currentTarget)
+
+  publishUserInputUpdate: (form)->
+      $.pubsub("publish", "user_input_update", form)

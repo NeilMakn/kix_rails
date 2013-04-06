@@ -2,9 +2,9 @@
 class PreKix.DefaultPage
   constructor: ->
     @el = '#taskpage-default'
-    @setEvents()
+    @setEventListeners()
 
-  setEvents: ->
+  setEventListeners: ->
     $.pubsub("subscribe", "category_button_click", @handleEvents.bind(this))
     $.pubsub("subscribe", "subtask_button_click", @handleEvents.bind(this))
 

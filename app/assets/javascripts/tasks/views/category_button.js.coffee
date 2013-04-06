@@ -2,16 +2,18 @@
 class PreKix.CategoryButton
   constructor: ->
     @el = '.cat-button'
-    @setEvents()
+    @setEventListeners()
+    @setEventHandlers()
 
-  setEvents: ->
-    $.pubsub("subscribe", "category_button_click", @handleEvents.bind(this))
+  setEventListeners: ->
+    $.pubsub("subscribe", "category_button_click", @onCategoryButtonClick.bind(this))
 
+  setEventHandlers: ->
     $(@el).click (e)->
       context = e.currentTarget
       $.pubsub("publish", "category_button_click", context)
 
-  handleEvents: (message, context)->
+  onCategoryButtonClick: (message, context)->
     @deselectOthers(context)
     @setDisplayState(context)
 

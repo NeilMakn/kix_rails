@@ -2,23 +2,24 @@
 class PreKix.SubtaskButton
   constructor: ->
     @el = '.subtask'
-    @setEvents()
+    @setEventListeners()
+    @setEventHandlers()
 
-  setEvents: ->
-    $.pubsub("subscribe", "subtask_button_click", @handleEvents.bind(this))
-    $.pubsub("subscribe", "category_button_click", @handleEvents.bind(this))
+  setEventListeners: ->
+    $.pubsub("subscribe", "subtask_button_click", @onSubtaskButtonClick.bind(this))
+    $.pubsub("subscribe", "category_button_click", @onCategoryButtonClick.bind(this))
 
+  setEventHandlers: ->
     $(@el).click (e)->
       context = e.currentTarget
       $.pubsub("publish", "subtask_button_click", context)
 
-  handleEvents: (message, context)->
-    if message == "subtask_button_click"
-      @deselectOthers(context)
-      @setDisplayState(context)
+  onCategoryButtonClick: (message, context)->
+    @deselectAll()
 
-    if message == "category_button_click"
-      @deselectAll()
+  onSubtaskButtonClick: (message, context)->
+    @deselectOthers(context)
+    @setDisplayState(context)
 
   deselectAll: ->
     @setDeselected(@el)

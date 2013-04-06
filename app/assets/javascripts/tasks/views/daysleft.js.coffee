@@ -1,5 +1,5 @@
 @PreKix = PreKix ? {}
-class PreKix.DaysLeftView
+class PreKix.DaysLeft
   constructor: (@launchDate, @suffix=" days left")->
     @el = '#flag'
     @nowDate  = new Date()

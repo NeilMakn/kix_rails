@@ -2,7 +2,7 @@ class PreKix.CategoryBadge
   constructor: ->
     @el = '.category-badge'
     @context = null
-    @setEvents()
+    @setEventListeners()
 
   findContextByCategoryButton: (context)->
     $(context).children(@el).get(0)
@@ -10,7 +10,7 @@ class PreKix.CategoryBadge
   findContextByCategory: (context)->
     $('#' + context).find(@el)
 
-  setEvents: ->
+  setEventListeners: ->
     $.pubsub("subscribe", "category_button_click", @onCategoryButtonClick.bind(this))
     $.pubsub("subscribe", "category_tasks_complete", @onCategoryTaskComplete.bind(this))
     $.pubsub("subscribe", "category_tasks_incomplete", @onCategoryTaskIncomplete.bind(this))

@@ -2,16 +2,17 @@
 class PreKix.SubtaskProgressBar
   constructor: ->
     @el = '.dotted'
-    @setEvents()
+    @setEventListeners()
 
   getContext:(category)->
     context = "#" + category + " .cat-button"
-    $(context).children('.dotted')
+    $(context).children('.dotted').get(0)
 
-  setEvents: ->
-    $.pubsub('subscribe', 'update_category_task_complete', @setComplete.bind(this))
+  setEventListeners: ->
+    $.pubsub('subscribe', 'category_task_complete', @onCategoryTaskComplete.bind(this))
 
-  setComplete: (message, taskData)->
+  onCategoryTaskComplete: (message, taskData)->
+    console.log message
     category = taskData.category
     context = @getContext(category)
     completed = taskData.completed

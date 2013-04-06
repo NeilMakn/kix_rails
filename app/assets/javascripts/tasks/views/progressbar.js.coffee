@@ -4,10 +4,10 @@ class PreKix.ProgressBar
     @el = '#progress-bar-main'
     @bar_increment = bar_max_width/task_total
     @tasks_complete = 0
-    @setEvents()
+    @setEventListeners()
 
-  setEvents: ->
-    $.pubsub('subscribe', 'update_total_task_complete', @setComplete.bind(this))
+  setEventListeners: ->
+    $.pubsub('subscribe', 'total_task_complete', @setComplete.bind(this))
 
   getBarWidth: ->
     (@bar_increment * @completed_tasks) + "px"

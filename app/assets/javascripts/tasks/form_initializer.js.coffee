@@ -1,24 +1,14 @@
 @PreKix = PreKix ? {}
 class PreKix.FormInitializer
   constructor: ->
-    @createForms()
-    @setEvents()
+    @setListenerEvents()
 
-  setEvents: ->
-    $.pubsub("subscribe", "fetch_success", @handleEvents.bind(this))
+  setListenerEvents: ->
+    $.pubsub("subscribe", "fetch_success", @onFetchSuccess.bind(this))
 
-  handleEvents: (message, data)->
+  onFetchSuccess: (message, data)->
     if message == "fetch_success"
       @populateForms(data)
-
-  createForms: ->
-    source = $("#form-template").html()
-    template = Handlebars.compile(source)
-    $(".subtask").each (index, element)->
-      category = $(this).parent().parent().attr("id")
-      subtask = $(this).attr("id")
-      data = { category: category, subtask: subtask}
-      $("#taskpage-"+subtask).children(".form-display").html(template(data))
 
   handleCompletedTasks: (category, subtask, completed)->
     if completed != null
@@ -27,8 +17,9 @@ class PreKix.FormInitializer
 
   populateForms: (data)->
     _self = @
-    cat_tasks_completed = 0
-    last_cat = ""
+    # Do template
+    source    = $("#form-template").html()
+    template  = Handlebars.compile(source)
     $.each data, (index, value)->
       id        = value.id
       type      = value.type_task
@@ -37,9 +28,6 @@ class PreKix.FormInitializer
       subtask   = PreKix.TYPES[type]
       category  = subtask.split("-")[0]
       data      = { category: category, subtask: subtask, id: id, text: text, completed: completed }
-      # Do template
-      source    = $("#form-template").html()
-      template  = Handlebars.compile(source)
       #
       context = $("#taskpage-" + subtask)
       $("#taskpage-" + subtask).children(".form-display").html(template(data))

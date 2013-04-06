@@ -2,9 +2,9 @@
 class PreKix.TaskToggle
   constructor: ->
     @el = '.toggle-task'
-    @setEvents()
+    @setEventHandlers()
 
-  setEvents: ->
+  setEventHandlers: ->
     _self = @
     $(@el).change (e)->
       context = e.currentTarget
@@ -17,14 +17,14 @@ class PreKix.TaskToggle
 
   publishToggleUpdate: (context)->
       toggleState = parseInt($(context).val(), 10)
-      toggleData = @getToggleData(context)
+      toggleData = @formatToggleData(context)
       if toggleState == 1
         $.pubsub("publish", "toggle_task_complete", toggleData)
 
       else if toggleState == 0
         $.pubsub("publish", "toggle_task_incomplete", toggleData)
 
-  getToggleData: (context)->
+  formatToggleData: (context)->
     category = $(context).parent().data('cat')
     subtask = $(context).parent().data('subtask')
     data = {category: category, subtask: subtask}

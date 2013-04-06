@@ -1,12 +1,12 @@
 
 class PreKix.TaskTracker
   constructor: ->
-    @setEvents()
+    @setEventListeners()
     @totalTasksComplete = 0
     @categoryTaskMax = 5
-    @tasksComplete = {story:0, finantial:0, marketing:0, networking:0, video:0}
+    @tasksComplete = {story:0, fin:0, marketing:0, net:0, video:0}
 
-  setEvents: ->
+  setEventListeners: ->
     $.pubsub('subscribe', 'toggle_task_complete', @onToggleTaskComplete.bind(this))
     $.pubsub('subscribe', 'toggle_task_incomplete', @onToggleTaskIncomplete.bind(this))
 
@@ -41,10 +41,10 @@ class PreKix.TaskTracker
 
   publishCategoryTaskChange: (category, completed)->
     taskData = {category: category, completed: completed}
-    $.pubsub('publish', 'update_category_task_complete', taskData)
+    $.pubsub('publish', 'category_task_complete', taskData)
 
   publishTotalTaskChange:->
-    $.pubsub('publish', 'update_total_task_complete', @totalTasksComplete)
+    $.pubsub('publish', 'total_task_complete', @totalTasksComplete)
 
 
 

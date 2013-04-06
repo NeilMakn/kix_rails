@@ -6,9 +6,9 @@
 window.PreKix = PreKix || {};
 
 $ ()->
-  onFetchComplete = (topic, data)->
-    daysLeft = new PreKix.DaysLeftView(new Date("2013-04-27 11:23:00")).render()
-    taskTextarea = new PreKix.TaskTextareaView()
+  onPopulateFormsComplete = (topic, data)->
+    daysLeft = new PreKix.DaysLeft(new Date("2013-04-27 11:23:00")).render()
+    taskTextarea = new PreKix.TaskTextarea()
     taskToggle = new PreKix.TaskToggle()
     PreKix.toggleSetup()
 
@@ -35,5 +35,5 @@ $ ()->
     ajax_requester = new PreKix.AjaxRequester()
     ajax_requester.fetch()
 
-    $.pubsub("subscribe", "populate_forms_complete", onFetchComplete)
+    $.pubsub("subscribe", "populate_forms_complete", onPopulateFormsComplete.bind(this))
   init()

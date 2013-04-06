@@ -2,7 +2,8 @@
 class PreKix.SubtaskMenu
   constructor: ->
     @el = '.subtasks'
-    @setEvents()
+    @setEventListeners()
+    @setEventHandlers()
 
   findSubtaskMenu: (catButton)->
     $(catButton).parent().children(@el).get(0)
@@ -13,14 +14,15 @@ class PreKix.SubtaskMenu
   isClosed: (context)->
     if $(context).css("display") == "none" then true else false
 
-  setEvents: ->
+  setEventListeners: ->
+    $.pubsub("subscribe", "category_button_click", @onCategoryButtonClick.bind(this))
+
+  setEventHandlers: ->
     _self = this
     $(@el).on "close_open_subtask_menus", ->
       _self.closeOpenMenus(this)
 
-    $.pubsub("subscribe", "category_button_click", @handleEvents.bind(this))
-
-  handleEvents: (message, context)->
+  onCategoryButtonClick: (message, context)->
     context = @findSubtaskMenu(context)
     $(@el).trigger "close_open_subtask_menus"
     @displayMenu(context)
