@@ -4,8 +4,6 @@ class PreKix.DaysLeft
     @el = '#flag'
     @nowDate  = new Date()
 
-  setLaunchDate: (@launchDate)->
-
   findDaysLeft: ->
     Math.ceil((@launchDate - @nowDate) / 1000 / 60 / 60 / 24)
 
