@@ -7,15 +7,6 @@ class PreKix.FormInitializer
     $.pubsub("subscribe", "fetch_success", @onFetchSuccess.bind(this))
 
   onFetchSuccess: (message, data)->
-    if message == "fetch_success"
-      @populateForms(data)
-
-  handleCompletedTasks: (category, subtask, completed)->
-    if completed != null
-      toggleData = {category: category, subtask: subtask}
-      $.pubsub('publish', 'toggle_task_complete', toggleData)
-
-  populateForms: (data)->
     _self = @
     # Do template
     source    = $("#form-template").html()
@@ -37,3 +28,7 @@ class PreKix.FormInitializer
 
     $.pubsub("publish", "populate_forms_complete", data)
 
+  handleCompletedTasks: (category, subtask, completed)->
+    if completed != null
+      toggleData = {category: category, subtask: subtask}
+      $.pubsub('publish', 'toggle_task_complete', toggleData)

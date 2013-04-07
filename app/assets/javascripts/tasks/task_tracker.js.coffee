@@ -10,34 +10,30 @@ class PreKix.TaskTracker
     $.pubsub('subscribe', 'toggle_task_complete', @onToggleTaskComplete.bind(this))
     $.pubsub('subscribe', 'toggle_task_incomplete', @onToggleTaskIncomplete.bind(this))
 
-  incrementTask: (category)->
-    @tasksComplete[category] += 1
-    @totalTasksComplete += 1
-    @publishCategoryTaskChange(category, @tasksComplete[category])
-    @publishTotalTaskChange()
-    if @tasksComplete[category] == @categoryTaskMax
-      @publishCategoryTasksComplete(category)
-
-  deincrementTask: (category)->
-    @tasksComplete[category] -= 1
-    @totalTasksComplete -= 1
-    @publishCategoryTaskChange(category, @tasksComplete[category])
-    @publishTotalTaskChange()
-    if @tasksComplete[category] < @categoryTaskMax
-      @publishCategoryTasksIncomplete(category)
-
-  onToggleTaskComplete: (message, toggleData)->
-    @incrementTask(toggleData.category)
-
-  onToggleTaskIncomplete: (message, toggleData)->
-    @deincrementTask(toggleData.category)
+  incrementTask: (category, increment)->
+    @tasksComplete[category] += increment
+    @totalTasksComplete += increment
 
   #
-  publishCategoryTasksComplete: (category)->
-    $.pubsub('publish', 'category_tasks_complete', category)
+  onToggleTaskComplete: (message, toggleData)->
+    @incrementTask(toggleData.category, 1)
+    @publishAll(toggleData.category)
 
-  publishCategoryTasksIncomplete: (category)->
-    $.pubsub('publish', 'category_tasks_incomplete', category)
+  onToggleTaskIncomplete: (message, toggleData)->
+    @incrementTask(toggleData.category, -1)
+    @publishAll(toggleData.category)
+
+  # Shortcut to publish all events on task state update
+  publishAll: (category)->
+    @publishCategoryTaskChange(category, @tasksComplete[category])
+    @publishTotalTaskChange()
+    @publishCategoryTaskCompletion(category)
+
+  publishCategoryTaskCompletion: (category)->
+    if @tasksComplete[category] == @categoryTaskMax
+      $.pubsub('publish', 'category_tasks_complete', category)
+    else
+      $.pubsub('publish', 'category_tasks_incomplete', category)
 
   publishCategoryTaskChange: (category, completed)->
     taskData = {category: category, completed: completed}
