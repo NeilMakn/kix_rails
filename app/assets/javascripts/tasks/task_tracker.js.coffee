@@ -27,16 +27,13 @@ class PreKix.TaskTracker
   publishAll: (category)->
     @publishCategoryTaskChange(category, @tasksComplete[category])
     @publishTotalTaskChange()
-    if @tasksComplete[category] == @categoryTaskMax
-      @publishCategoryTasksComplete(category)
-    else
-      @publishCategoryTasksIncomplete(category)
-  #
-  publishCategoryTasksComplete: (category)->
-    $.pubsub('publish', 'category_tasks_complete', category)
+    @publishCategoryTaskCompletion(category)
 
-  publishCategoryTasksIncomplete: (category)->
-    $.pubsub('publish', 'category_tasks_incomplete', category)
+  publishCategoryTaskCompletion: (category)->
+    if @tasksComplete[category] == @categoryTaskMax
+      $.pubsub('publish', 'category_tasks_complete', category)
+    else
+      $.pubsub('publish', 'category_tasks_incomplete', category)
 
   publishCategoryTaskChange: (category, completed)->
     taskData = {category: category, completed: completed}
