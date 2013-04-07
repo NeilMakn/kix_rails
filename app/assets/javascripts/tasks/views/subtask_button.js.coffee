@@ -15,14 +15,11 @@ class PreKix.SubtaskButton
       $.pubsub("publish", "subtask_button_click", context)
 
   onCategoryButtonClick: (message, context)->
-    @deselectAll()
+    @setDeselected(@el)
 
   onSubtaskButtonClick: (message, context)->
     @deselectOthers(context)
     @setDisplayState(context)
-
-  deselectAll: ->
-    @setDeselected(@el)
 
   deselectOthers: (context)->
     _self = @

@@ -15,7 +15,6 @@ class PreKix.AjaxRequester
 
   update: (message, form)->
     data = @formatFormValues(form)
-    console.log data
     @sync(data)
 
   sync: (data)->
@@ -38,5 +37,4 @@ class PreKix.AjaxRequester
       success: (data)->
         $.pubsub("publish", "fetch_success", data)
       error: (err, status, exception)->
-        console.log err
         $.pubsub("publish", "fetch_error", err)
