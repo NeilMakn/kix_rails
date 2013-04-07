@@ -10,28 +10,27 @@ class PreKix.TaskTracker
     $.pubsub('subscribe', 'toggle_task_complete', @onToggleTaskComplete.bind(this))
     $.pubsub('subscribe', 'toggle_task_incomplete', @onToggleTaskIncomplete.bind(this))
 
-  incrementTask: (category)->
-    @tasksComplete[category] += 1
-    @totalTasksComplete += 1
+  incrementTask: (category, increment)->
+    @tasksComplete[category] += increment
+    @totalTasksComplete += increment
+
+  #
+  onToggleTaskComplete: (message, toggleData)->
+    @incrementTask(toggleData.category, 1)
+    @publishAll(toggleData.category)
+
+  onToggleTaskIncomplete: (message, toggleData)->
+    @incrementTask(toggleData.category, -1)
+    @publishAll(toggleData.category)
+
+  # Shortcut to publish all events on task state update
+  publishAll: (category)->
     @publishCategoryTaskChange(category, @tasksComplete[category])
     @publishTotalTaskChange()
     if @tasksComplete[category] == @categoryTaskMax
       @publishCategoryTasksComplete(category)
-
-  deincrementTask: (category)->
-    @tasksComplete[category] -= 1
-    @totalTasksComplete -= 1
-    @publishCategoryTaskChange(category, @tasksComplete[category])
-    @publishTotalTaskChange()
-    if @tasksComplete[category] < @categoryTaskMax
+    else
       @publishCategoryTasksIncomplete(category)
-
-  onToggleTaskComplete: (message, toggleData)->
-    @incrementTask(toggleData.category)
-
-  onToggleTaskIncomplete: (message, toggleData)->
-    @deincrementTask(toggleData.category)
-
   #
   publishCategoryTasksComplete: (category)->
     $.pubsub('publish', 'category_tasks_complete', category)
