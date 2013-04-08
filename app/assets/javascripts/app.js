@@ -3,17 +3,17 @@ var prekix = prekix || {};
 $(function() {
   var pubsub = _.extend({}, Backbone.Events);
 
-  $.each(prekix.CATEGORIES, function(index, category){
-    initializeCategoryButtons(category);
-    // initializeCategoryBadges(category);
-    // initializeCategoryProgressBars(category);
-    initializeCategoryMenus(category);
-  });
+  // $.each(prekix.CATEGORIES, function(index, category){
+  //   initializeCategoryButtons(category);
+  //   // initializeCategoryBadges(category);
+  //   // initializeCategoryProgressBars(category);
+  //   initializeCategoryMenus(category);
+  // });
 
   function initializeCategoryButtons(category) {
     var catId = '#' + category;
     var el = $(catId).find('.cat-button').get(0);
-    var catButton = new prekix.CategoryButton({el:el, category: category, pubsub: pubsub});
+    var catButton = new prekix.views.CategoryButton({el:el, category: category, pubsub: pubsub});
   }
 
   function initializeCategoryProgressBars(category){
@@ -29,7 +29,7 @@ $(function() {
   function initializeCategoryMenus(category){
     var catId = '#' + category;
     var el = $(catId).find('.subtasks').get(0);
-    var subtaskMenu = new prekix.SubtaskMenu({el:el, category: category, pubsub: pubsub});
+    var subtaskMenu = new prekix.views.SubtaskMenu({el:el, category: category, pubsub: pubsub});
   }
 
   $('.subtasks').hide();

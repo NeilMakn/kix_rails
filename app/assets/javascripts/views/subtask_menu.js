@@ -1,7 +1,8 @@
 var prekix = prekix || {};
+prekix.views = prekix.views || {};
 
 (function($){
-  prekix.SubtaskMenu = Backbone.View.extend({
+  prekix.views.SubtaskMenu = Backbone.View.extend({
     initialize: function(options){
       this.category = options.category;
       this.pubsub = options.pubsub;
