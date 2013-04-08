@@ -24,5 +24,7 @@
 //= require jquery.placeholder
 //= require jquery.pubsub
 //= require handlebars
+//= require underscore
+//= require backbone
 //= require fui_application
 //= require_tree .
