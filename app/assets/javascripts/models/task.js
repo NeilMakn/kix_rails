@@ -1,8 +1,8 @@
 var prekix = prekix || {};
 prekix.models = prekix.models || {};
 
-(function($){
+(function(){
   prekix.models.Task = Backbone.Model.extend({
-    //
+
   });
-})(jQuery);
+})();

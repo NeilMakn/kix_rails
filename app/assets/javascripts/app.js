@@ -2,7 +2,6 @@ var prekix = prekix || {};
 
 $(function() {
   var pubsub = _.extend({}, Backbone.Events);
-
   // $.each(prekix.CATEGORIES, function(index, category){
   //   initializeCategoryButtons(category);
   //   // initializeCategoryBadges(category);
@@ -33,4 +32,7 @@ $(function() {
   }
 
   $('.subtasks').hide();
+  //
+  prekix.Tasks = new prekix.collections.Tasks();
+  prekix.app = new prekix.views.App();
 });
