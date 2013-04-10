@@ -29,5 +29,6 @@
 //= require fui_application
 //= require models/task
 //= require collections/tasks
-//= require app.js
+//= require types
+//= require app
 //= require_tree ./views

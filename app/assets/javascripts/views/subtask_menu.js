@@ -12,8 +12,8 @@ prekix.views = prekix.views || {};
     setEventListeners: function(){
       _.bindAll(this, 'onCategoryButtonSelect');
       _.bindAll(this, 'onCategoryButtonDeselect');
-      this.pubsub.bind('category_button_select', this.onCategoryButtonSelect);
-      this.pubsub.bind('category_button_deselect', this.onCategoryButtonDeselect);
+      prekix.PubSub.on('category_button_select', this.onCategoryButtonSelect);
+      prekix.PubSub.on('category_button_deselect', this.onCategoryButtonDeselect);
     },
 
     onCategoryButtonSelect: function(category){

@@ -5,5 +5,6 @@ prekix.views.App = Backbone.View.extend({
   el: "#container",
   initialize: function(options){
     prekix.Sidebar = new prekix.views.Sidebar();
+    prekix.Tasks.fetch();
   }
 });

@@ -5,15 +5,14 @@ prekix.views = prekix.views || {};
   prekix.views.CategoryButton = Backbone.View.extend({
     selected: false,
     initialize: function(options){
-      // _.bindAll(this);
       this.category = options.category;
-      this.pubsub = options.pubsub;
       this.setEventListeners();
     },
 
     setEventListeners: function(){
       _.bindAll(this, 'onCategoryButtonSelect');
-      this.pubsub.bind('category_button_select', this.onCategoryButtonSelect);
+      prekix.PubSub.on('category_button_select', this.onCategoryButtonSelect);
+      // prekix.PubSub.on('category_button_deselect', this.onCategoryButtonDeselect);
     },
 
     events: {
@@ -32,14 +31,14 @@ prekix.views = prekix.views || {};
       this.selected = true;
       this.$el.addClass('select');
       this.$el.children('.dotted').children('li').addClass('select');
-      this.pubsub.trigger('category_button_select', this.category);
+      prekix.PubSub.trigger('category_button_select', this.category);
     },
 
     deselect: function(){
       this.selected = false;
       this.$el.removeClass('select');
       this.$el.children('.dotted').children('li').removeClass('select');
-      this.pubsub.trigger('category_button_deselect', this.category);
+      prekix.PubSub.trigger('category_button_deselect', this.category);
     },
 
     // We call this do deselect all category buttons that are not
@@ -49,5 +48,6 @@ prekix.views = prekix.views || {};
         this.deselect();
       }
     }
+
   });
 })(jQuery);
