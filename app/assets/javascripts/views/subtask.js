@@ -14,6 +14,9 @@ prekix.views = prekix.views || {};
     setEventListeners: function(){
       _.bindAll(this, 'onSubtaskMenuItemSelect');
       prekix.PubSub.on('subtask_menu_item_select', this.onSubtaskMenuItemSelect);
+
+      _.bindAll(this, 'onCategoryButtonDeselect');
+      prekix.PubSub.on('category_button_deselect', this.onCategoryButtonDeselect);
     },
 
     events: {
@@ -24,6 +27,12 @@ prekix.views = prekix.views || {};
       if (this.selected === false){
         this.select();
       }else{
+        this.deselect();
+      }
+    },
+
+    onCategoryButtonDeselect: function(category){
+      if(this.category === category){
         this.deselect();
       }
     },
@@ -45,6 +54,5 @@ prekix.views = prekix.views || {};
       this.$el.removeClass('select');
       prekix.PubSub.trigger('subtask_menu_item_deselect', this.subtask);
     }
-
   });
 })(jQuery);
