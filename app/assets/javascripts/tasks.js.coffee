@@ -31,6 +31,7 @@ $ ()->
     taskPage = new PreKix.TaskPage()
     taskTracker = new PreKix.TaskTracker()
     taskToggleText = new PreKix.ToggleText()
+    autoSave = new PreKix.Autosave()
 
     ajax_requester = new PreKix.AjaxRequester()
     ajax_requester.fetch()
