@@ -7,6 +7,7 @@ prekix.views = prekix.views || {};
       this.category = options.category;
       this.pubsub = options.pubsub;
       this.setEventListeners();
+      this.$el.hide();
     },
 
     setEventListeners: function(){
@@ -29,15 +30,11 @@ prekix.views = prekix.views || {};
     },
 
     show: function(){
-      this.$el.slideDown(500, function(){
-
-      });
+      this.$el.slideDown(500);
     },
 
     hide: function(){
-      this.$el.slideUp(500, function(){
-
-      });
+      this.$el.slideUp(500);
     }
 
   });

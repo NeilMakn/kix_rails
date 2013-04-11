@@ -7,7 +7,7 @@ prekix.views = prekix.views || {};
 
     initialize: function(options){
       this.category = options.category;
-      this.subtask = options.subtask;
+      this.subtask  = options.subtask;
       this.setEventListeners();
     },
 
@@ -29,6 +29,7 @@ prekix.views = prekix.views || {};
       }else{
         this.deselect();
       }
+      prekix.PubSub.trigger('subtask_menu_item_click', this.subtask);
     },
 
     onCategoryButtonDeselect: function(category){

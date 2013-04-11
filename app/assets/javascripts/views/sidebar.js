@@ -4,10 +4,10 @@ prekix.views = prekix.views || {};
 (function($){
   prekix.views.Sidebar = Backbone.View.extend({
     el: "#sidenav",
-    categories: prekix.CATEGORIES,
-    subtasks: prekix.TYPES,
 
-    initialize: function(options){
+    initialize: function(){
+      this.categories = prekix.CATEGORIES;
+      this.subtasks = prekix.TYPES;
       this.addSideBarElements();
     },
 

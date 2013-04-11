@@ -25,6 +25,7 @@ prekix.views = prekix.views || {};
       }else{
         this.deselect();
       }
+      prekix.PubSub.trigger('category_button_click', this.category);
     },
 
     select: function(){
@@ -48,6 +49,5 @@ prekix.views = prekix.views || {};
         this.deselect();
       }
     }
-
   });
 })(jQuery);

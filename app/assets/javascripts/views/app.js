@@ -1,10 +1,14 @@
 var prekix = prekix || {};
 prekix.views = prekix.views || {};
 
-prekix.views.App = Backbone.View.extend({
-  el: "#container",
-  initialize: function(options){
-    prekix.Sidebar = new prekix.views.Sidebar();
-    prekix.Tasks.fetch();
-  }
-});
+(function($){
+  prekix.views.App = Backbone.View.extend({
+    el: "#container",
+
+    initialize: function(){
+      prekix.Sidebar = new prekix.views.Sidebar();
+      prekix.MainContent = new prekix.views.MainContent();
+      prekix.Tasks.fetch();
+    }
+  });
+})(jQuery);
