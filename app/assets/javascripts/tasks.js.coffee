@@ -11,6 +11,7 @@ $ ()->
     taskTextarea = new PreKix.TaskTextarea()
     taskToggle = new PreKix.TaskToggle()
     PreKix.toggleSetup()
+    autoSave = new PreKix.Autosave()
 
   init = ->
     $('.subtasks').hide()
@@ -31,7 +32,6 @@ $ ()->
     taskPage = new PreKix.TaskPage()
     taskTracker = new PreKix.TaskTracker()
     taskToggleText = new PreKix.ToggleText()
-    autoSave = new PreKix.Autosave()
 
     ajax_requester = new PreKix.AjaxRequester()
     ajax_requester.fetch()
