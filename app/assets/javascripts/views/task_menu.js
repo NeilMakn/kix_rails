@@ -11,10 +11,20 @@ prekix.views = prekix.views || {};
     },
 
     setEventListeners: function(){
+      _.bindAll(this, 'addOne');
+      this.listenTo(prekix.Tasks, 'add', this.addOne);
       _.bindAll(this, 'onCategoryButtonSelect');
-      _.bindAll(this, 'onCategoryButtonDeselect');
       prekix.PubSub.on('category_button_select', this.onCategoryButtonSelect);
+      _.bindAll(this, 'onCategoryButtonDeselect');
       prekix.PubSub.on('category_button_deselect', this.onCategoryButtonDeselect);
+    },
+
+    addOne: function(model){
+      var subtask = prekix.TYPES[model.get('type_task')];
+      var category = this.category;
+      var el = '#' + subtask;
+      var options = {el: el, category:category, subtask:subtask, model:model};
+      this.subtask = new prekix.views.SubtaskMenuItem(options);
     },
 
     onCategoryButtonSelect: function(category){
@@ -35,17 +45,6 @@ prekix.views = prekix.views || {};
 
     hide: function(){
       this.$el.slideUp(500);
-    },
-
-    addSubtask: function(category, subtask){
-      var el = '#' + subtask;
-      var subtaskData = {el: el, category: category, subtask: subtask};
-      this.subtask = new prekix.views.SubtaskMenuItem(subtaskData);
-    },
-
-    render: function(){
-
     }
-
   });
 })(jQuery);

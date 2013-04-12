@@ -7,8 +7,8 @@ prekix.views = prekix.views || {};
       this.model    = options.model;
       this.category = options.category;
       this.subtask  = options.subtask;
-      this.setEventListeners();
-      this.render(options);
+      // this.setEventListeners();
+      this.render();
     },
 
     setEventListeners: function(){
@@ -30,11 +30,18 @@ prekix.views = prekix.views || {};
 
     },
 
-    render: function(options){
+    render: function(){
       this.injectFormTemplate();
-      options.parent = this;
+      var options = {
+        parent: this,
+        category: this.category,
+        subtask: this.subtask,
+        model: this.model
+      };
+      //
       options.el = this.$el.find('.toggle-task');
       this.taskToggle = new prekix.views.TaskToggle(options);
+      //
       options.el = this.$el.find('textarea');
       this.taskTextarea = new prekix.views.TaskTextarea(options);
     }

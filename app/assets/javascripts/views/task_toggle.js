@@ -4,9 +4,10 @@ prekix.views = prekix.views || {};
 (function($){
   prekix.views.TaskToggle = Backbone.View.extend({
     initialize:function(options){
-      this.model = options.model;
+      this.parent   = options.parent;
+      this.model    = options.model;
       this.category = options.category;
-      this.subtask = options.subtask;
+      this.subtask  = options.subtask;
     },
 
     events: {
@@ -14,13 +15,9 @@ prekix.views = prekix.views || {};
     },
 
     onChange: function(e){
-      this.updateModel();
-    },
-
-    updateModel: function(){
-      var toggleVal = this.$el.val();
-      this.model.set('completed', toggleVal);
+      var target = e.currentTarget;
+      var toggleState = parseInt($(target).val(), 10);
+      this.model.save('completed', toggleState);
     }
-
   });
 })(jQuery);

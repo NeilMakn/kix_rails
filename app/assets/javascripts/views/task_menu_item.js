@@ -8,7 +8,9 @@ prekix.views = prekix.views || {};
     initialize: function(options){
       this.category = options.category;
       this.subtask  = options.subtask;
+      this.model    = options.model;
       this.setEventListeners();
+      this.addBadge();
     },
 
     setEventListeners: function(){
@@ -21,6 +23,17 @@ prekix.views = prekix.views || {};
 
     events: {
       'click' : 'onClick'
+    },
+
+    addBadge: function(){
+      var el = this.$el.find('.sub-badge').get(0);
+      var options = {
+        el:el,
+        category: this.category,
+        subtask: this.subtask,
+        model: this.model
+      };
+      this.badge = new prekix.views.TaskBadge(options);
     },
 
     onClick: function(e){

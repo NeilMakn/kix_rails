@@ -7,8 +7,12 @@ prekix.views = prekix.views || {};
 
     initialize: function(){
       this.categoryMenuList = new prekix.views.CategoryMenuList();
-      // this.mainContent = new prekix.views.MainContent();
-      prekix.Tasks.fetch();
+      this.mainContent = new prekix.views.MainContent();
+      prekix.Tasks.fetch({
+        success: function(){
+          prekix.toggleSetup();
+        }
+      });
     }
   });
 })(jQuery);

@@ -28,7 +28,7 @@ prekix.views = prekix.views || {};
 
     updateModel: function(){
       var textVal = this.$el.val();
-      this.model.set('text', textVal);
+      this.model.save('text', textVal);
     }
   });
 })(jQuery);

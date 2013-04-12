@@ -25,8 +25,14 @@ prekix.views = prekix.views || {};
     },
 
     render: function(data){
-      data.el = this.$el.find('.form-display').get(0);
-      this.taskForm = new prekix.views.TaskForm(data);
+      var el = this.$el.find('.form-display').get(0);
+      var options = {
+        el:el,
+        category: this.category,
+        subtask: this.subtask,
+        model: this.model
+      };
+      this.taskForm = new prekix.views.TaskForm(options);
       this.$el.hide();
     }
   });
