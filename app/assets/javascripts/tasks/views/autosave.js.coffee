@@ -1,30 +1,23 @@
 @PreKix = PreKix ? {}
 class PreKix.Autosave
   constructor: ->
+    @el = 'textarea'
     @setListenerEvents()
+    @setEventHandlers()
 
   setListenerEvents: ->
     $.pubsub("subscribe", "sync_success", @saveContent.bind(this))
+    $.pubsub("subscribe", "saving_now", @onTypingSaving.bind(this))
 
   saveContent: (message, data)->
-    $(".autosave").html("Saved!")
-    # _self = @
-    # # Do template
-    # source    = $("#form-template").html()
-    # template  = Handlebars.compile(source)
-    # $.each data, (index, value)->
-    #   id        = value.id
-    #   type      = value.type_task
-    #   text      = value.text
-    #   completed = value.completed
-    #   subtask   = PreKix.TYPES[type]
-    #   category  = subtask.split("-")[0]
-    #   data      = { category: category, subtask: subtask, id: id, text: text, completed: completed }
-    #   #
-    #   context = $("#taskpage-" + subtask)
-    #   $("#taskpage-" + subtask).children(".form-display").html(template(data))
-    #   # handleCompletedTasks notifies the task tracker
-    #   # if a task is complete so views can be updated
-    #   _self.handleCompletedTasks(category, subtask, completed)
+    $(".autosave").html("All changes saved!")
 
-    # $.pubsub("publish", "populate_forms_complete", data)
+  onTypingSaving: (message, context)->
+    $(".autosave").html("")
+    $(".autosave").html("Saving...")
+
+  setEventHandlers: ->
+    console.log($(@el))
+    $(@el).keydown (e)->
+      console.log("keydown happened")
+      $.pubsub("publish", "saving_now")
