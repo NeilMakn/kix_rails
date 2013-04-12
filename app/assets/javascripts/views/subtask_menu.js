@@ -35,6 +35,16 @@ prekix.views = prekix.views || {};
 
     hide: function(){
       this.$el.slideUp(500);
+    },
+
+    addSubtask: function(category, subtask){
+      var el = '#' + subtask;
+      var subtaskData = {el: el, category: category, subtask: subtask};
+      this.subtask = new prekix.views.SubtaskMenuItem(subtaskData);
+    },
+
+    render: function(){
+
     }
 
   });

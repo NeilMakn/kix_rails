@@ -6,8 +6,8 @@ prekix.views = prekix.views || {};
     el: "#container",
 
     initialize: function(){
-      prekix.Sidebar = new prekix.views.Sidebar();
-      prekix.MainContent = new prekix.views.MainContent();
+      this.categoryMenuList = new prekix.views.CategoryMenuList();
+      // this.mainContent = new prekix.views.MainContent();
       prekix.Tasks.fetch();
     }
   });

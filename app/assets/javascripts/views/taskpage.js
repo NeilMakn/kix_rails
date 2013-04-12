@@ -7,17 +7,8 @@ prekix.views = prekix.views || {};
       this.model    = options.model;
       this.category = options.category;
       this.subtask  = options.subtask;
-      this.$el.hide();
-      this.initForm();
       this.setEventListeners();
-    },
-
-    initForm: function(){
-      var formData      = this.model.attributes;
-      formData.category = this.category;
-      formData.subtask  = this.subtask;
-      var context       = $("#taskpage-" + this.subtask).get(0);
-      $(context).find('.form-display').html(prekix.handlebarsTaskForm(formData));
+      this.render(options);
     },
 
     setEventListeners: function(){
@@ -31,6 +22,12 @@ prekix.views = prekix.views || {};
       }else{
         this.$el.show();
       }
+    },
+
+    render: function(data){
+      data.el = this.$el.find('.form-display').get(0);
+      this.taskForm = new prekix.views.TaskForm(data);
+      this.$el.hide();
     }
   });
 })(jQuery);

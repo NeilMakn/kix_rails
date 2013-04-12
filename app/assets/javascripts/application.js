@@ -27,8 +27,8 @@
 //= require underscore
 //= require backbone
 //= require fui_application
-//= require models/task
-//= require collections/tasks
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./views
 //= require types
 //= require app
-//= require_tree ./views
