@@ -5,8 +5,8 @@ prekix.views = prekix.views || {};
   prekix.views.TaskBadge = Backbone.View.extend({
     initialize: function(options){
       this.category = options.category;
-      this.subtask = options.subtask;
-      this.model = options.model;
+      this.task     = options.task;
+      this.model    = options.model;
       this.setEventListeners();
       this.render();
     },

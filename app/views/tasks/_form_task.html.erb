@@ -6,11 +6,11 @@
 
     <div class="toggle-group">
       <span class="toggle-text">Mark Complete</span>
-      <div id="toggle-{{ subtask }}" data-cat="{{ category }}" data-subtask="{{ subtask }}" class="toggle toggle-icon">
-        <label class="toggle-radio fui-checkmark-16" for="toggle2-{{ subtask }}"></label>
-        <input type="radio" class="toggle-task" name="completed" id="toggle1-{{ subtask }}" value="1" {{#if completed }}checked="checked"{{/if}}>
-        <label class="toggle-radio fui-cross-16" for="toggle1-{{ subtask }}"></label>
-        <input type="radio" class="toggle-task" name="completed" id="toggle2-{{ subtask }}" value="0" {{#unless completed }}checked="checked"{{/unless}}>
+      <div id="toggle-{{ task }}" class="toggle toggle-icon">
+        <label class="toggle-radio fui-checkmark-16" for="toggle2-{{ task }}"></label>
+        <input type="radio" class="toggle-task" name="completed" id="toggle1-{{ task }}" value="1" {{#if completed }}checked="checked"{{/if}}>
+        <label class="toggle-radio fui-cross-16" for="toggle1-{{ task }}"></label>
+        <input type="radio" class="toggle-task" name="completed" id="toggle2-{{ task }}" value="0" {{#unless completed }}checked="checked"{{/unless}}>
       </div>
     </div>
   </form>

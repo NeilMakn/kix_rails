@@ -13,17 +13,17 @@ prekix.views = prekix.views || {};
     setEventListeners: function(){
       _.bindAll(this, 'onCategoryButtonClick');
       prekix.PubSub.on('category_button_click', this.onCategoryButtonClick);
-      _.bindAll(this, 'onSubtaskMenuItemClick');
-      prekix.PubSub.on('subtask_menu_item_click', this.onSubtaskMenuItemClick);
+      _.bindAll(this, 'onTaskMenuItemClick');
+      prekix.PubSub.on('task_menu_item_click', this.onTaskMenuItemClick);
     },
 
     onCategoryButtonClick: function(category){
       this.$el.find('#taskpage-default').show();
-      this.$el.find('#taskpage-subtask').hide();
+      this.$el.find('#taskpage-task').hide();
     },
 
-    onSubtaskMenuItemClick: function(){
-      this.$el.find('#taskpage-subtask').show();
+    onTaskMenuItemClick: function(){
+      this.$el.find('#taskpage-task').show();
       this.$el.find('#taskpage-default').hide();
     }
   });

@@ -2,7 +2,7 @@ var prekix = prekix || {};
 prekix.views = prekix.views || {};
 
 (function($){
-  prekix.views.SubtaskMenu = Backbone.View.extend({
+  prekix.views.TaskMenu = Backbone.View.extend({
     initialize: function(options){
       this.category = options.category;
       this.pubsub = options.pubsub;
@@ -20,11 +20,11 @@ prekix.views = prekix.views || {};
     },
 
     addOne: function(model){
-      var subtask = prekix.TYPES[model.get('type_task')];
+      var task = prekix.TYPES[model.get('type_task')];
       var category = this.category;
-      var el = '#' + subtask;
-      var options = {el: el, category:category, subtask:subtask, model:model};
-      this.subtask = new prekix.views.SubtaskMenuItem(options);
+      var el = '#' + task;
+      var options = {el: el, category:category, task:task, model:model};
+      this.task = new prekix.views.TaskMenuItem(options);
     },
 
     onCategoryButtonSelect: function(category){

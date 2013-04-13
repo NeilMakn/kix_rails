@@ -6,14 +6,14 @@ prekix.views = prekix.views || {};
     initialize: function(options){
       this.model    = options.model;
       this.category = options.category;
-      this.subtask  = options.subtask;
+      this.task  = options.task;
       this.render();
     },
 
     injectFormTemplate: function(){
       var formData      = this.model.attributes;
       formData.category = this.category;
-      formData.subtask  = this.subtask;
+      formData.task  = this.task;
       this.$el.html(prekix.handlebarsTaskForm(formData));
     },
 
@@ -26,7 +26,7 @@ prekix.views = prekix.views || {};
       var options = {
         parent: this,
         category: this.category,
-        subtask: this.subtask,
+        task: this.task,
         model: this.model
       };
       //

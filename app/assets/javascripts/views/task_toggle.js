@@ -7,7 +7,7 @@ prekix.views = prekix.views || {};
       this.parent   = options.parent;
       this.model    = options.model;
       this.category = options.category;
-      this.subtask  = options.subtask;
+      this.task     = options.task;
     },
 
     events: {

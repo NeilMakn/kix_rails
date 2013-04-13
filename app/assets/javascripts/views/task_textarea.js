@@ -4,9 +4,9 @@ prekix.views = prekix.views || {};
 (function($){
   prekix.views.TaskTextarea = Backbone.View.extend({
     initialize:function(options){
-      this.model = options.model;
+      this.model    = options.model;
       this.category = options.category;
-      this.subtask = options.subtask;
+      this.task     = options.task;
       //
       this.inputTimer = null;
       this.waitTime = 1556;

@@ -136,12 +136,12 @@ ul.progress-bar li {
 
 /****** Sub Task List Styles ******/
 
-.subtasks{
+.tasks{
 	background-color: #15bc9d;
 	margin-left: 2px !important;
 	display: block;
 }
-.subtask{
+.task{
 	position: relative;
 	color: #15bc9d;
 	font-size: 1.3em;
@@ -154,11 +154,11 @@ ul.progress-bar li {
 	margin-left: 7px;
 }
 
-.subtask span{
+.task span{
 
 }
 
-.subtask strong{
+.task strong{
 	text-align: center;
 	font-size: 1.3em;
 	border-radius: 999px;
@@ -171,12 +171,12 @@ ul.progress-bar li {
 	display: inline-block;
 }
 
-.subtask.select{
+.task.select{
 	color: #fff;
 	background-color: #f39b3a;
 }
 
-.subtask .sub-badge{
+.task .sub-badge{
 	position: absolute;
 	right:20px;
 	top:50%;
@@ -185,16 +185,16 @@ ul.progress-bar li {
 	height: 34px;
 }
 
-.subtask .incomplete{
-	background: url(image-path('badges/subtask/incomplete.png'));
+.task .incomplete{
+	background: url(image-path('badges/task/incomplete.png'));
 }
 
-.subtask .complete{
-	background: url(image-path('badges/subtask/complete.png'));
+.task .complete{
+	background: url(image-path('badges/task/complete.png'));
 }
 
-.subtask .complete.select{
-	background: url(image-path('badges/subtask/complete-select.png'));
+.task .complete.select{
+	background: url(image-path('badges/task/complete-select.png'));
 }
 
 /****** Text Elements ******/

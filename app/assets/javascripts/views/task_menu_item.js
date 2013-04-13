@@ -2,20 +2,20 @@ var prekix = prekix || {};
 prekix.views = prekix.views || {};
 
 (function($){
-  prekix.views.SubtaskMenuItem = Backbone.View.extend({
+  prekix.views.TaskMenuItem = Backbone.View.extend({
     selected: false,
 
     initialize: function(options){
       this.category = options.category;
-      this.subtask  = options.subtask;
+      this.task  = options.task;
       this.model    = options.model;
       this.setEventListeners();
       this.addBadge();
     },
 
     setEventListeners: function(){
-      _.bindAll(this, 'onSubtaskMenuItemSelect');
-      prekix.PubSub.on('subtask_menu_item_select', this.onSubtaskMenuItemSelect);
+      _.bindAll(this, 'onTaskMenuItemSelect');
+      prekix.PubSub.on('task_menu_item_select', this.onTaskMenuItemSelect);
 
       _.bindAll(this, 'onCategoryButtonDeselect');
       prekix.PubSub.on('category_button_deselect', this.onCategoryButtonDeselect);
@@ -30,7 +30,7 @@ prekix.views = prekix.views || {};
       var options = {
         el:el,
         category: this.category,
-        subtask: this.subtask,
+        task: this.task,
         model: this.model
       };
       this.badge = new prekix.views.TaskBadge(options);
@@ -42,7 +42,7 @@ prekix.views = prekix.views || {};
       }else{
         this.deselect();
       }
-      prekix.PubSub.trigger('subtask_menu_item_click', this.subtask);
+      prekix.PubSub.trigger('task_menu_item_click', this.task);
     },
 
     onCategoryButtonDeselect: function(category){
@@ -51,8 +51,8 @@ prekix.views = prekix.views || {};
       }
     },
 
-    onSubtaskMenuItemSelect: function(subtask){
-      if(this.subtask !== subtask && this.selected === true){
+    onTaskMenuItemSelect: function(task){
+      if(this.task !== task && this.selected === true){
         this.deselect();
       }
     },
@@ -60,13 +60,13 @@ prekix.views = prekix.views || {};
     select: function(){
       this.selected = true;
       this.$el.addClass('select');
-      prekix.PubSub.trigger('subtask_menu_item_select', this.subtask);
+      prekix.PubSub.trigger('task_menu_item_select', this.task);
     },
 
     deselect: function(){
       this.selected = false;
       this.$el.removeClass('select');
-      prekix.PubSub.trigger('subtask_menu_item_deselect', this.subtask);
+      prekix.PubSub.trigger('task_menu_item_deselect', this.task);
     }
   });
 })(jQuery);

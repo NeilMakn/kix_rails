@@ -6,18 +6,18 @@ prekix.views = prekix.views || {};
     initialize: function(options){
       this.model    = options.model;
       this.category = options.category;
-      this.subtask  = options.subtask;
+      this.task     = options.task;
       this.setEventListeners();
       this.render();
     },
 
     setEventListeners: function(){
-      _.bindAll(this, 'onSubtaskMenuItemClick');
-      prekix.PubSub.on('subtask_menu_item_click', this.onSubtaskMenuItemClick);
+      _.bindAll(this, 'onTaskMenuItemClick');
+      prekix.PubSub.on('task_menu_item_click', this.onTaskMenuItemClick);
     },
 
-    onSubtaskMenuItemClick: function(subtask){
-      if(this.subtask !== subtask){
+    onTaskMenuItemClick: function(task){
+      if(this.task !== task){
         this.$el.hide();
       }else{
         this.$el.show();
@@ -29,7 +29,7 @@ prekix.views = prekix.views || {};
       var options = {
         el:el,
         category: this.category,
-        subtask: this.subtask,
+        task: this.task,
         model: this.model
       };
       this.taskForm = new prekix.views.TaskForm(options);

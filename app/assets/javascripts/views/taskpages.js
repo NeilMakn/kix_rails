@@ -3,7 +3,7 @@ prekix.views = prekix.views || {};
 
 (function($){
   prekix.views.TaskPages = Backbone.View.extend({
-    el: '#taskpage-subtask',
+    el: '#taskpage-task',
     initialize: function(){
       this.setEventListeners();
       this.$el.hide();
@@ -15,13 +15,13 @@ prekix.views = prekix.views || {};
     },
 
     addOne: function(model){
-      var subtask  = prekix.TYPES[model.get('type_task')];
-      var category = subtask.split("-")[0];
-      var el       = '#taskpage-' + subtask;
+      var task  = prekix.TYPES[model.get('type_task')];
+      var category = task.split("-")[0];
+      var el       = '#taskpage-' + task;
       var taskPage = new prekix.views.TaskPage({
         el:el,
         category:category,
-        subtask:subtask,
+        task:task,
         model:model
       });
     }
