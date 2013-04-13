@@ -7,16 +7,7 @@ prekix.views = prekix.views || {};
       this.model    = options.model;
       this.category = options.category;
       this.subtask  = options.subtask;
-      // this.setEventListeners();
       this.render();
-    },
-
-    setEventListeners: function(){
-      _.bindAll(this, 'onTaskToggleChange');
-      prekix.PubSub.on('task_toggle_change', this.onTaskToggleChange);
-
-      _.bindAll(this, 'onTaskTextareaChange');
-      prekix.PubSub.on('task_textarea_change', this.onTaskTextareaChange);
     },
 
     injectFormTemplate: function(){

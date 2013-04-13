@@ -1,3 +1,1 @@
-Create forms for each subtask dynamically.
-    Compile form html from handlebars template
-    Insert form into subtask form container
+Main progress bar should update on task toggle.

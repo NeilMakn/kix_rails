@@ -7,7 +7,7 @@ prekix.collections = prekix.collections || {};
     fetch: function(){
       var _self = this;
       _.each(prekix.CATEGORIES, function(element, index, list){
-        _self.add({category:element});
+          _self.add({category:element});
       });
     }
   });

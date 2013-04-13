@@ -108,7 +108,7 @@ li.cats {
 	background: #2c3f4e;
 }
 
-ul.dotted li {
+ul.progress-bar li {
 	list-style: none;
 	color: #2c3e50;
 	float: left;
@@ -120,11 +120,11 @@ ul.dotted li {
 	background-image: url(image-path('badge-off.png')) middle no-repeat;
 }
 
-.dotted .select{
+.progress-bar .select{
 	color: #33495e;
 }
 
-.dotted .complete{
+.progress-bar .complete{
 	color: #f39b3a;
 }
 

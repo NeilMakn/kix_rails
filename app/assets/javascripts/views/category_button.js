@@ -7,6 +7,7 @@ prekix.views = prekix.views || {};
     initialize: function(options){
       this.category = options.category;
       this.setEventListeners();
+      this.addProgressBar();
     },
 
     setEventListeners: function(){
@@ -17,6 +18,15 @@ prekix.views = prekix.views || {};
 
     events: {
       'click': 'onClick'
+    },
+
+    addProgressBar: function(){
+      var el = this.$el.find('.progress-bar');
+      var options = {
+        el: el,
+        category: this.category
+      };
+      this.progressBar = new prekix.views.ProgressBarCategory(options);
     },
 
     onClick: function(e){
@@ -31,14 +41,14 @@ prekix.views = prekix.views || {};
     select: function(){
       this.selected = true;
       this.$el.addClass('select');
-      this.$el.children('.dotted').children('li').addClass('select');
+      this.$el.children('.progress-bar').children('li').addClass('select');
       prekix.PubSub.trigger('category_button_select', this.category);
     },
 
     deselect: function(){
       this.selected = false;
       this.$el.removeClass('select');
-      this.$el.children('.dotted').children('li').removeClass('select');
+      this.$el.children('.progress-bar').children('li').removeClass('select');
       prekix.PubSub.trigger('category_button_deselect', this.category);
     },
 

@@ -6,6 +6,7 @@ prekix.views = prekix.views || {};
     el: "#container",
 
     initialize: function(){
+      this.progressBar = new prekix.views.ProgressBarMain();
       this.categoryMenuList = new prekix.views.CategoryMenuList();
       this.mainContent = new prekix.views.MainContent();
       prekix.Tasks.fetch({

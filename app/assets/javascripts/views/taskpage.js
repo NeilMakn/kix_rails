@@ -8,7 +8,7 @@ prekix.views = prekix.views || {};
       this.category = options.category;
       this.subtask  = options.subtask;
       this.setEventListeners();
-      this.render(options);
+      this.render();
     },
 
     setEventListeners: function(){
@@ -24,7 +24,7 @@ prekix.views = prekix.views || {};
       }
     },
 
-    render: function(data){
+    render: function(){
       var el = this.$el.find('.form-display').get(0);
       var options = {
         el:el,
