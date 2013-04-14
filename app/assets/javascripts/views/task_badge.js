@@ -17,7 +17,7 @@ prekix.views = prekix.views || {};
 
     render:function(){
       var toggleState = this.model.get('completed');
-      // toggle state is either 1 or a datetime when true
+      // Toggle state is either 1 or a datetime when true
       // and null or 0 when false.
       if(toggleState === 0 || toggleState === null){
         this.$el.removeClass('complete').addClass('incomplete');

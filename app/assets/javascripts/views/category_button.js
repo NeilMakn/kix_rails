@@ -5,9 +5,10 @@ prekix.views = prekix.views || {};
   prekix.views.CategoryButton = Backbone.View.extend({
     selected: false,
     initialize: function(options){
-      this.category = options.category;
+      this.category    = options.category;
+      this.badge       = this.addCategoryBadge(this.category);
+      this.progressBar = this.addProgressBar(this.category, this.badge);
       this.setEventListeners();
-      this.addProgressBar();
     },
 
     setEventListeners: function(){
@@ -20,13 +21,23 @@ prekix.views = prekix.views || {};
       'click': 'onClick'
     },
 
-    addProgressBar: function(){
+    addProgressBar: function(category, badge){
       var el = this.$el.find('.progress-bar');
       var options = {
         el: el,
-        category: this.category
+        badge: badge,
+        category: category
       };
-      this.progressBar = new prekix.views.ProgressBarCategory(options);
+      return new prekix.views.ProgressBarCategory(options);
+    },
+
+    addCategoryBadge: function(category){
+      var el = this.$el.find('.category-badge');
+      var options = {
+        el: el,
+        category: category
+      };
+      return new prekix.views.CategoryBadge(options);
     },
 
     onClick: function(e){
@@ -36,6 +47,14 @@ prekix.views = prekix.views || {};
         this.deselect();
       }
       prekix.PubSub.trigger('category_button_click', this.category);
+    },
+
+    // We call this do deselect all category buttons that are not
+    // the currently selected category button.
+    onCategoryButtonSelect: function(category){
+      if(this.category !== category && this.selected === true){
+        this.deselect();
+      }
     },
 
     select: function(){
@@ -50,14 +69,6 @@ prekix.views = prekix.views || {};
       this.$el.removeClass('select');
       this.$el.children('.progress-bar').children('li').removeClass('select');
       prekix.PubSub.trigger('category_button_deselect', this.category);
-    },
-
-    // We call this do deselect all category buttons that are not
-    // the currently selected category button.
-    onCategoryButtonSelect: function(category){
-      if(this.category !== category && this.selected === true){
-        this.deselect();
-      }
     }
   });
 })(jQuery);

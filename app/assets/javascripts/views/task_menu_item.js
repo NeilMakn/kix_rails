@@ -7,8 +7,9 @@ prekix.views = prekix.views || {};
 
     initialize: function(options){
       this.category = options.category;
-      this.task  = options.task;
+      this.task     = options.task;
       this.model    = options.model;
+      this.selected = false;
       this.setEventListeners();
       this.addBadge();
     },
@@ -39,13 +40,12 @@ prekix.views = prekix.views || {};
     onClick: function(e){
       if (this.selected === false){
         this.select();
-      }else{
-        this.deselect();
       }
       prekix.PubSub.trigger('task_menu_item_click', this.task);
     },
 
     onCategoryButtonDeselect: function(category){
+      this.selected = false;
       if(this.category === category){
         this.deselect();
       }

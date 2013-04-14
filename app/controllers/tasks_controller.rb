@@ -2,6 +2,15 @@ class TasksController < ApplicationController
   before_filter :authenticate_user!
   before_filter :taskCheck
 
+  # Make sure we only select the attributes we want from the backbone request.
+  def pick (hash, *keys)
+    filtered = {}
+    hash.each do |key, value|
+      filtered[key.to_sym] = value if keys.include?(key.to_sym)
+    end
+    filtered
+  end
+
   # someone needs to refactor this.
   def taskCheck
     if Task.where(:user_id => current_user.id).empty?
@@ -89,7 +98,7 @@ class TasksController < ApplicationController
     params[:task][:completed] = completed
 
     respond_to do |format|
-      if @task.update_attributes(params[:task])
+      if @task.update_attributes pick(params[:task], :text, :completed)
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { head :no_content }
       else
@@ -120,10 +129,6 @@ class TasksController < ApplicationController
       format.json {render json: @allTasks}
     end
   end
-
-  # try making method that creates task upon sign up
-
-
 end
 
 

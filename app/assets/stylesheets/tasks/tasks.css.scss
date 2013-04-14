@@ -156,15 +156,15 @@ ul.progress-bar li {
   top: 8px;
 }
 
-.category-badge.incomplete {
+.cat-button .category-badge.incomplete {
   background: url(image-path('badges/category/incomplete.png')) no-repeat;
 }
 
-.category-badge.incomplete-select{
+.cat-button.select .category-badge.incomplete{
   background: url(image-path('badges/category/incomplete_select.png')) no-repeat;
 }
 
-.category-badge.complete{
+.cat-button .category-badge.complete{
   background: url(image-path('badges/category/complete.png')) no-repeat;
 }
 
@@ -227,7 +227,7 @@ ul.progress-bar li {
   background: url(image-path('badges/task/complete.png'));
 }
 
-.task .complete.select{
+.task.select .complete{
   background: url(image-path('badges/task/complete_select.png'));
 }
 

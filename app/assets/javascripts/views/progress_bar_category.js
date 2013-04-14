@@ -5,7 +5,8 @@ prekix.views = prekix.views || {};
   prekix.views.ProgressBarCategory = Backbone.View.extend({
     el: '#progress-bar-main',
     initialize:function(options){
-      this.category = options.category;
+      this.category  = options.category;
+      this.badge     = options.badge;
       this.taskTotal = 5;
       this.tasksComplete = 0;
       this.setEventListeners();
@@ -19,6 +20,14 @@ prekix.views = prekix.views || {};
     checkCategory: function(taskType){
       var category = prekix.helpers.getCategoryByTaskType(taskType);
       return (category === this.category) ? true : false;
+    },
+
+    setBadgeState: function(){
+      if(this.tasksComplete === this.taskTotal){
+        this.badge.setComplete();
+      }else{
+        this.badge.setIncomplete();
+      }
     },
 
     setUp: function(model){
@@ -46,6 +55,7 @@ prekix.views = prekix.views || {};
     render: function(){
       this.$el.children('li').removeClass('complete');
       this.$el.children('li:nth-child(-n+' + this.tasksComplete + ')').addClass('complete');
+      this.setBadgeState();
     }
   });
 })(jQuery);
