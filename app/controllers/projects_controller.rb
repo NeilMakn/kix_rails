@@ -1,4 +1,16 @@
 class ProjectsController < ApplicationController
+  before_filter :authenticate_user!
+  before_filter :projectCheck
+
+  def projectCheck
+    if Project.where(:user_id => current_user.id).empty?
+      # project = Project.new
+      # project.user_id = current_user.id
+      # project.save
+      # if name or launch date are not set show user that page.
+    end
+  end
+
   # GET /projects
   # GET /projects.json
   def index
