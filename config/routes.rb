@@ -1,4 +1,7 @@
 KixRails::Application.routes.draw do
+  resources :projects
+
+
   devise_for :users
   
   match 'tasks/app' => 'tasks#app', :via => :get
