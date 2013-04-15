@@ -1,27 +1,5 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :taskCheck
-
-  # Make sure we only select the attributes we want from the backbone request.
-  def pick (hash, *keys)
-    filtered = {}
-    hash.each do |key, value|
-      filtered[key.to_sym] = value if keys.include?(key.to_sym)
-    end
-    filtered
-  end
-
-  # someone needs to refactor this.
-  def taskCheck
-    if Task.where(:user_id => current_user.id).empty?
-      (0..24).each do |i|
-        task = Task.new
-        task.type_task = i
-        task.user_id = current_user.id
-        task.save
-      end
-    end
-  end
 
   # GET /tasks
   # GET /tasks.json

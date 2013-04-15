@@ -12,8 +12,6 @@ KixRails::Application.routes.draw do
 
   match '/users/sign_out' => 'logout', :controller => 'sessions', :action => 'destroy'
 
-
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

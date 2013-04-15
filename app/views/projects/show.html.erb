@@ -1,20 +1,18 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @project.name %>
-</p>
+<div id="container-top">
+  <h1 class="orange">preKix</h1>
+  <div id="progress-bar-main"></div>
+  <div id="flag">Needs Data</div>
+</div><!-- end container-top -->
 
-<p>
-  <b>Launch date:</b>
-  <%= @project.launch_date %>
-</p>
+<div id="container">
 
-<p>
-  <b>User:</b>
-  <%= @project.user %>
-</p>
+  <%= render "sidebar" %>
+
+  <%= render "main_content" %>
 
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+</div><!-- end container -->
+
+<%= render "footer" %>
+

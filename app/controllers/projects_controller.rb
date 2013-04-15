@@ -1,25 +1,11 @@
 class ProjectsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :projectCheck
-
-  def projectCheck
-    if Project.where(:user_id => current_user.id).empty?
-      # project = Project.new
-      # project.user_id = current_user.id
-      # project.save
-      # if name or launch date are not set show user that page.
-    end
-  end
 
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @projects }
-    end
+    default_project_id = User.find(current_user).default_project_id
+    redirect_to :action => :show, :id => default_project_id
   end
 
   # GET /projects/1
