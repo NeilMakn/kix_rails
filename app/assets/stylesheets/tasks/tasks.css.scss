@@ -24,6 +24,64 @@
   background-color: #ecf0f1;
 }
 
+#container-top h1 {
+  font-size: 3em;
+  width: 700px;
+  float: left;
+}
+
+#container-top h2 {
+  font-size: 2.2em;
+  text-align: center;
+}
+
+// Header elements
+#flag {
+  width: 127px;
+  height: 38px;
+  float: right;
+  background: url(image-path('days-left-flag.png')) no-repeat right center;
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 0 0 0 30px;
+  margin-top: 6px;
+  position: relative;
+  z-index: 2;
+}
+
+#container-top #flag h3{
+  font-size: .7em;
+  line-height: 0;
+  margin-top: 17px;
+  background-color: red;
+}
+
+#container-top #flag input{
+  font-size: 1em;
+  text-align: left;
+  margin-top: 3px;
+  width: 5em;
+  padding: 4px;
+  line-height: 1;
+  // background-color: #33495e;
+  border-color: lightgrey;
+  // color: #FFF;
+}
+
+#progress-bar-main{
+  width: 0;
+  height: 38px;
+  background-color: #f39b3a;
+  border-radius: 999px;
+  position: absolute;
+  margin: 0; padding: 0;
+  margin-top:6px;
+  margin-left:327px;
+  left:0;
+  z-index: 1;
+}
+
 // main content
 #main-content {
   width: 100%;
@@ -79,32 +137,6 @@
   margin: 0;
 }
 
-#flag {
-  width: 127px;
-  height: 32px;
-  float: right;
-  background: url(image-path('days-left-flag.png')) no-repeat right center;
-  color: #fff;
-  font-size: 1.5em;
-  font-weight: bold;
-  padding: 6px 0 0 30px;
-  margin-top: 6px;
-  position: relative;
-  z-index: 2;
-}
-
-#progress-bar-main{
-  width: 0;
-  height: 38px;
-  background-color: #f39b3a;
-  border-radius: 999px;
-  position: absolute;
-  margin: 0; padding: 0;
-  margin-top:6px;
-  margin-left:327px;
-  left:0;
-  z-index: 1;
-}
 
 /****** Main Task List Styles ******/
 
@@ -248,18 +280,6 @@ ul.progress-bar li {
 #deadline h2 {
   margin-bottom: 20px;
   line-height: 0.8em;
-}
-
-#container-top h1 {
-  font-size: 3em;
-  width: 700px;
-  float: left;
-}
-
-//
-#container-top h2 {
-  font-size: 2.2em;
-  text-align: center;
 }
 
 p.quote {

@@ -1,6 +1,8 @@
  ✔ Clicking a completed task menu item should show the badge in a completed/selected state. @done (13-04-13 15:34)
- ☐ Clicking a task menu item after selecting it should not put it into a deselected state.
+ ✔ Clicking a task menu item after selecting it should not put it into a deselected state. @done (13-04-13 17:20)
  ✔ When all category tasks are complete the category badge should display the completed state @done (13-04-13 17:17)
  ✔ When a category button is selected the category incomplete badge should be inverted @done (13-04-13 17:07)
+ ☐ Fix database to work with new projects table associtation.
+ ☐ Add launch date selection on sign up
  ☐ Add router so that page refresh does not reset view, and allows for bookmarking.
  ☐ Find better placement for log out link
