@@ -11,6 +11,4 @@ class User < ActiveRecord::Base
 
   # associations
   has_many :projects
-
-
 end
