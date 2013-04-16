@@ -5,13 +5,15 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     default_project_id = User.find(current_user).default_project_id
+    session[:current_project_id] = default_project_id
+
     redirect_to :action => :show, :id => default_project_id
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @project = Project.find(params[:id]).tasks
+    @project = Project.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -54,7 +56,14 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.json
   def update
-    @project = Project.find(params[:id])
+    puts "Params"
+    puts params
+    @project = Project.find(params[:task][:project_id])
+    puts "Project Update:"
+    puts @project[:id]
+    # @task = Task.find(params[:id])
+    # params[:task][:completed].to_i == 1 ? completed = DateTime.now().to_s : completed = nil
+    # params[:task][:completed] = completed
 
     respond_to do |format|
       if @project.update_attributes(params[:project])

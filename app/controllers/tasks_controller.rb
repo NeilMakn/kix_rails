@@ -3,22 +3,11 @@ class TasksController < ApplicationController
 
   # GET /tasks
   # GET /tasks.json
-  def app
-    @tasks = Task.where(:user_id => current_user)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @tasks }
-    end
-  end
-
-  # GET /tasks
-  # GET /tasks.json
   def index
-    @tasks = Task.where(:user_id => current_user)
+    @tasks = Task.where(:project_id => session[:current_project_id])
 
     respond_to do |format|
-      format.html # index.html.erb
+      # format.html # index.html.erb
       format.json { render json: @tasks }
     end
   end
@@ -54,7 +43,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(params[:task])
-    @task.user_id = current_user.id
+    # @task.user_id = current_user.id
 
 
     respond_to do |format|
@@ -95,16 +84,6 @@ class TasksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to tasks_url }
       format.json { head :no_content }
-    end
-  end
-
-  #GET /tasks/test
-  def test_update
-    @tasks = Task.where(:user_id => current_user)
-
-    respond_to do |format|
-      format.html #test_update.html.erb
-      format.json {render json: @allTasks}
     end
   end
 end
