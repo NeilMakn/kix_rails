@@ -6,7 +6,9 @@ prekix.views = prekix.views || {};
     el: "#container",
 
     initialize: function(){
-      this.launchDate = new prekix.views.LaunchDate({ model: prekix.ProjectModel });
+      this.launchDateDisplay = new prekix.views.LaunchDateDisplay({ model: prekix.ProjectModel });
+      this.launchDateInput   = new prekix.views.LaunchDateInput({ model: prekix.ProjectModel });
+
       this.progressBar = new prekix.views.ProgressBarMain();
       this.categoryMenuList = new prekix.views.CategoryMenuList();
       this.mainContent = new prekix.views.MainContent();

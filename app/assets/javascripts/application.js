@@ -26,6 +26,7 @@
 //= require handlebars
 //= require underscore
 //= require backbone
+//= require moment
 //= require fui_application
 //= require_tree ./models
 //= require_tree ./collections

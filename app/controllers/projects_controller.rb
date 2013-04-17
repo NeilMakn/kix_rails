@@ -56,17 +56,10 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.json
   def update
-    puts "Params"
-    puts params
-    @project = Project.find(params[:task][:project_id])
-    puts "Project Update:"
-    puts @project[:id]
-    # @task = Task.find(params[:id])
-    # params[:task][:completed].to_i == 1 ? completed = DateTime.now().to_s : completed = nil
-    # params[:task][:completed] = completed
+    @project = Project.find(params[:project][:id])
 
     respond_to do |format|
-      if @project.update_attributes(params[:project])
+      if @project.update_attributes pick(params[:project], :name, :launch_date)
         format.html { redirect_to @project, notice: 'Project was successfully updated.' }
         format.json { head :no_content }
       else
