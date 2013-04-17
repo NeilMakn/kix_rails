@@ -27,6 +27,7 @@ class PreKix.AjaxRequester
       data: data
       success: (data)->
         $.pubsub("publish", "sync_success", data)
+        console.log("sync success!")
       error: (err, status, exception)->
         $.pubsub("publish", "sync_error", err)
 

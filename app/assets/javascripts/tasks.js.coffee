@@ -11,6 +11,7 @@ $ ()->
     taskTextarea = new PreKix.TaskTextarea()
     taskToggle = new PreKix.TaskToggle()
     PreKix.toggleSetup()
+    autoSave = new PreKix.Autosave()
 
   init = ->
     $('.subtasks').hide()
