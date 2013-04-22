@@ -1,4 +1,4 @@
-var PreKix = PreKix || {};
+var prekix = prekix || {};
 
 var toggleHandler = function(toggle) {
     var toggle = toggle;
@@ -24,10 +24,10 @@ var toggleHandler = function(toggle) {
 };
 
 $(document).ready(function() {
-    PreKix.toggleSetup = function(){
+    prekix.toggleSetup = function(){
         $(".toggle").each(function(index, toggle) {
             toggleHandler(toggle);
         });
     };
-    PreKix.toggleSetup();
+    prekix.toggleSetup();
 });

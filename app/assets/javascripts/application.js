@@ -24,5 +24,14 @@
 //= require jquery.placeholder
 //= require jquery.pubsub
 //= require handlebars
+//= require underscore
+//= require backbone
+//= require moment
 //= require fui_application
-//= require_tree .
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./views
+//= require_tree ./routers
+//= require helpers
+//= require types
+//= require app

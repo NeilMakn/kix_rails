@@ -1,37 +1,13 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :taskCheck
-
-  # someone needs to refactor this.
-  def taskCheck
-    if Task.where(:user_id => current_user.id).empty?
-      (0..24).each do |i|
-        task = Task.new
-        task.type_task = i
-        task.user_id = current_user.id
-        task.save
-      end
-    end
-  end
-
-  # GET /tasks
-  # GET /tasks.json
-  def app
-    @tasks = Task.where(:user_id => current_user)
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @tasks }
-    end
-  end
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.where(:user_id => current_user)
+    @tasks = Task.where(:project_id => session[:current_project_id])
 
     respond_to do |format|
-      format.html # index.html.erb
+      # format.html # index.html.erb
       format.json { render json: @tasks }
     end
   end
@@ -67,7 +43,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(params[:task])
-    @task.user_id = current_user.id
+    # @task.user_id = current_user.id
 
 
     respond_to do |format|
@@ -89,7 +65,7 @@ class TasksController < ApplicationController
     params[:task][:completed] = completed
 
     respond_to do |format|
-      if @task.update_attributes(params[:task])
+      if @task.update_attributes pick(params[:task], :text, :completed)
         format.html { redirect_to @task, notice: 'Task was successfully updated.' }
         format.json { head :no_content }
       else
@@ -110,20 +86,6 @@ class TasksController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  #GET /tasks/test
-  def test_update
-    @tasks = Task.where(:user_id => current_user)
-
-    respond_to do |format|
-      format.html #test_update.html.erb
-      format.json {render json: @allTasks}
-    end
-  end
-
-  # try making method that creates task upon sign up
-
-
 end
 
 
