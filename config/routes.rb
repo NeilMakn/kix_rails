@@ -1,16 +1,16 @@
 KixRails::Application.routes.draw do
+  resources :projects
+
   devise_for :users
-  
-  match 'tasks/app' => 'tasks#app', :via => :get
-  match 'tasks/admin' => 'tasks#admin', :via => :get
-  match 'tasks/test' => 'tasks#test_update' , :via => :get
+
+  # match 'tasks/app' => 'tasks#app', :via => :get
+  # match 'tasks/admin' => 'tasks#admin', :via => :get
+  # match 'tasks/test' => 'tasks#test_update' , :via => :get
 
   resources :tasks
-  root :to => 'tasks#app'
+  root :to => 'projects#index'
 
   match '/users/sign_out' => 'logout', :controller => 'sessions', :action => 'destroy'
-
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
