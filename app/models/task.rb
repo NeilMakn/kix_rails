@@ -1,5 +1,5 @@
 class Task < ActiveRecord::Base
-  attr_accessible :completed, :text, :type_task, :user_id
+  attr_accessible :completed, :text, :type_task, :project_id
   # associations
   belongs_to :project
 
