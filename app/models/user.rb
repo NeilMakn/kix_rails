@@ -26,7 +26,8 @@ class User < ActiveRecord::Base
       (0..24).each do |i|
         project.tasks.new(:type_task => i)
       end
-      self.save!
+      project.save
+      self.save
     end
   end
 end

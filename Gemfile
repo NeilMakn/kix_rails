@@ -10,6 +10,10 @@ gem 'thin'
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'guard', '~> 1.8.0'
+  gem 'guard-livereload', '~> 1.4.0'
+  gem 'rspec-rails', '~> 2.13.0'
+  gem 'guard-rspec', '~> 2.5.4'
 end
 
 group :production do
