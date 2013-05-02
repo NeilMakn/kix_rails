@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  # after_create :create_initial_project_and_tasks
+  after_create :create_initial_project_and_tasks
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
       (0..24).each do |i|
         project.tasks.new(:type_task => i)
       end
+      project.save
       self.save
     end
   end
